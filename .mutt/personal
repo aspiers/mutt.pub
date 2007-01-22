@@ -1,0 +1,8 @@
+# dynamic ...
+source "~/.mutt/run-hooks common personal|"
+
+# ... or static
+#source ~/.mutt/work.autogen
+
+# Show the current version on startup
+push V

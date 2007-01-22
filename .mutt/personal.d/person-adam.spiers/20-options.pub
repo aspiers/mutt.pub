@@ -1,0 +1,8 @@
+
+   set   alias_file=~/.mutt/personal
+
+   # N.B. This has to come before any use of the '=' folder shortcut
+   # since '=' gets expanded at set-time not use-time :-(
+   set   folder=~/mail    # directory with all mail folders
+
+   set   postponed="=.postponed"

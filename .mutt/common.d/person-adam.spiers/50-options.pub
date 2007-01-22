@@ -1,0 +1,5 @@
+
+   set   certificate_file=~/.mutt/certificates
+   set   editor="emacs -nw"
+
+#  set   record="PLEASE CHOOSE AN FCC FOLDER!"
