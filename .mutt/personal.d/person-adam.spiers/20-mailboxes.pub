@@ -1,0 +1,25 @@
+# N.B. This has to come before any use of the '=' folder shortcut
+# since '=' gets expanded at set-time not use-time :-(
+set folder="~/mail/personal"
+
+set postponed="=drafts"
+set spoolfile="=in/MAIN"
+
+mailboxes !
+
+mailboxes =Calendar
+
+set record="=archive/`date +'%Y-%m'`"
+
+unset force_name # don't save outbound mail by username; would override record
+
+# Where to move read mail.  This is irrelevant, since move=no.
+set mbox="=archive/`date +'%Y-%m'`"
+
+macro index i  "<change-folder>=\t\t\t2\r"  "show main inboxes"
+macro pager i  "<change-folder>=\t\t\t2\r"  "show main inboxes"
+
+# last matching rule wins
+
+macro editor <f2> "<kill-line>=in/reading"
+

@@ -1,5 +1,6 @@
+set alias_file=~/.cfg/mutt.sec/.mutt/common.d/person-adam.spiers/50-alias-incoming
 
-   set   certificate_file=~/.mutt/certificates
-   set   editor="emacs -nw"
+set certificate_file=~/.mutt/certificates
+set editor="emacs -nw"
 
-#  set   record="PLEASE CHOOSE AN FCC FOLDER!"
+#set record="PLEASE CHOOSE AN FCC FOLDER!"

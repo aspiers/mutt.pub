@@ -1,0 +1,11 @@
+folder-hook =in/MAIN$                    source ~/.mutt/folders/MAIN
+folder-hook =in/junk-mail                source ~/.mutt/folders/junk-mail
+folder-hook =in/bad-junk-mail            'push "<tag-pattern>all\n;\ej"'
+# For SpamAssassin Bayesian retraining, use sa-learn --spam or --ham,
+# but sadly it won't accept from STDIN.
+folder-hook =in/retry/is-spam            'push "<tag-pattern>all\n;| mailfilter.crm --learnspam"'
+folder-hook =in/retry/is-ham             'push "<tag-pattern>all\n;| mailfilter.crm --learnnonspam"'
+folder-hook =in/SAFE$                    'push "<delete-pattern>~r >1w\n"'
+folder-hook =backup$                          'push "<delete-pattern>~r >1w\n"'
+
+folder-hook =lists/                           source ~/.mutt/mailing-list

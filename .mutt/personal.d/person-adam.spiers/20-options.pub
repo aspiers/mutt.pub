@@ -1,7 +1,0 @@
-set alias_file=~/.cfg/mutt.sec/.mutt/common.d/person-adam.spiers/50-alias-incoming
-
-# N.B. This has to come before any use of the '=' folder shortcut
-# since '=' gets expanded at set-time not use-time :-(
-set folder=~/mail    # directory with all mail folders
-
-set postponed="=.postponed"
