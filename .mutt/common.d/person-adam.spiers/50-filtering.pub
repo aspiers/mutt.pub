@@ -1,0 +1,2 @@
+macro pager "\ej"  "<save-message>=spam/`date +%Y-%m`/\n"  "save as junk mail"
+macro index "\ej"  "<save-message>=spam/`date +%Y-%m`/\n"  "save as junk mail"
