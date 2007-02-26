@@ -9,7 +9,7 @@ macro index "\ef"  ";|formail -s parp -ev\n"   "parp: extract Friends"
 
 macro pager "\ei"  "|TESTMEFIRST formail -s CRM-SA-parp-inject\n"   "parp: (re)Inject into spool"
 
-   # manual spam classification for parp (changes stats/friends db)
+# manual spam classification for parp (changes stats/friends db)
 #macro index "\eW"  ";|formail -s parp -rwv\n"   "please don't use this directly"
 macro pager "\ei"  "|CRM-SA-parp-inject\n"   "parp: (re)Inject into spool"
 macro pager "\et"  "|parp -rtv\n"  "parp: Test run"
@@ -18,7 +18,7 @@ macro pager "\eM"  "|crm-classify-test\n"  "crm114: Test run"
 
 macro pager "\ef"  "|parp -ev\n"   "parp: extract Friends"
 
-   # flag spam classification as wrong (changes stats/friends db)
+# flag spam classification as wrong (changes stats/friends db)
 macro pager "\eW"  "|parp -rwv\n"   "please don't use this directly"
 
 macro pager "\eS"  "<copy-message>=inboxes/retry/is-spam/\n\ej|crm-learn spam\n"   "treat as false negative (spam)"
