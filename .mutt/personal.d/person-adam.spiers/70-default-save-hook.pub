@@ -1,2 +1,2 @@
-fcc-save-hook . =archive.`date +'%Y.%m'`
+fcc-save-hook . =archive/`date +'%Y-%m'`
 
