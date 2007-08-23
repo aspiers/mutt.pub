@@ -16,8 +16,8 @@ unset force_name # don't save outbound mail by username; would override record
 # Where to move read mail.  This is irrelevant, since move=no.
 set mbox="=archive/`date +'%Y-%m'`"
 
-macro index i  "<change-folder>=\t\t\t2\r"  "show main inboxes"
-macro pager i  "<change-folder>=\t\t\t2\r"  "show main inboxes"
+macro index i  "<change-folder>=in/\t\tj"  "show main inboxes"
+macro pager i  "<change-folder>=in/\t\tj"  "show main inboxes"
 
 # last matching rule wins
 
