@@ -10,6 +10,13 @@ mailboxes !
 mailboxes =Calendar
 
 set record="=archive/`date +'%Y-%m'`"
+fcc-save-hook ~r\ `date +'1/%m/%Y-31/%m/%Y' -d "$(date +%Y-%m-15) -6 months"` =archive/`date +'%Y-%m' -d "$(date +%Y-%m-15) -6 months"`
+fcc-save-hook ~r\ `date +'1/%m/%Y-31/%m/%Y' -d "$(date +%Y-%m-15) -5 months"` =archive/`date +'%Y-%m' -d "$(date +%Y-%m-15) -5 months"`
+fcc-save-hook ~r\ `date +'1/%m/%Y-31/%m/%Y' -d "$(date +%Y-%m-15) -4 months"` =archive/`date +'%Y-%m' -d "$(date +%Y-%m-15) -4 months"`
+fcc-save-hook ~r\ `date +'1/%m/%Y-31/%m/%Y' -d "$(date +%Y-%m-15) -3 months"` =archive/`date +'%Y-%m' -d "$(date +%Y-%m-15) -3 months"`
+fcc-save-hook ~r\ `date +'1/%m/%Y-31/%m/%Y' -d "$(date +%Y-%m-15) -2 months"` =archive/`date +'%Y-%m' -d "$(date +%Y-%m-15) -2 months"`
+fcc-save-hook ~r\ `date +'1/%m/%Y-31/%m/%Y' -d "$(date +%Y-%m-15) -1 month "` =archive/`date +'%Y-%m' -d "$(date +%Y-%m-15) -1 month"`
+fcc-save-hook ~r\ `date +'1/%m/%Y-31/%m/%Y'                                 ` =archive/`date +'%Y-%m'`
 
 unset force_name # don't save outbound mail by username; would override record
 
