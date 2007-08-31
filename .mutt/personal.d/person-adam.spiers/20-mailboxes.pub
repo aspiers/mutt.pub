@@ -7,7 +7,9 @@ set spoolfile="=in/MAIN"
 
 mailboxes !
 
-mailboxes =Calendar
+mailboxes =archive/`date +'%Y-%m' -d "$(date +%Y-%m-15) -2 months"`
+mailboxes =archive/`date +'%Y-%m' -d "$(date +%Y-%m-15) -1 month"`
+mailboxes =archive/`date +'%Y-%m'`
 
 set record="=archive/`date +'%Y-%m'`"
 fcc-save-hook ~r\ `date +'1/%m/%Y-31/%m/%Y' -d "$(date +%Y-%m-15) -6 months"` =archive/`date +'%Y-%m' -d "$(date +%Y-%m-15) -6 months"`
@@ -23,8 +25,11 @@ unset force_name # don't save outbound mail by username; would override record
 # Where to move read mail.  This is irrelevant, since move=no.
 set mbox="=archive/`date +'%Y-%m'`"
 
-macro index i  "<change-folder>=in/\t\tj"  "show main inboxes"
-macro pager i  "<change-folder>=in/\t\tj"  "show main inboxes"
+#macro index i  "<change-folder>=in/\t\tj"  "show main inboxes"
+#macro pager i  "<change-folder>=in/\t\tj"  "show main inboxes"
+
+macro index i  "<change-folder><kill-line>\t\tjj"  "show main inboxes"
+macro pager i  "<change-folder><kill-line>\t\tjj"  "show main inboxes"
 
 # last matching rule wins
 
