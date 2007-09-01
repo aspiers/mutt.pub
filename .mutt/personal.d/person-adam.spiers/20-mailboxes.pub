@@ -6,6 +6,8 @@ set postponed="=drafts"
 set spoolfile="=in/MAIN"
 
 mailboxes !
+mailboxes =in/orgmode
+mailboxes =in/
 
 mailboxes =archive/`date +'%Y-%m' -d "$(date +%Y-%m-15) -2 months"`
 mailboxes =archive/`date +'%Y-%m' -d "$(date +%Y-%m-15) -1 month"`
