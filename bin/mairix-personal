@@ -1,0 +1,3 @@
+#!/bin/sh
+
+mairix -f ~/.mairix/personal/config "$@"
