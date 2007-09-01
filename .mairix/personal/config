@@ -1,0 +1,18 @@
+base=~/mail/personal
+# N.B. Can also use $FOO or ${FOO} here
+
+maildir=in...
+maildir=inboxes...
+maildir=archive...
+maildir=drafts...
+mbox=inboxes/OLD-MBOXES/*
+omit=in/raw.*
+
+# Where does the results folder get created? (relative to base)
+mfolder=mairix
+
+# What format should the results folder be?
+mformat=maildir
+
+# Where does the index database live?
+database=~/.mairix/personal/index
