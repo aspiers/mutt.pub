@@ -37,8 +37,9 @@ fi
 . "$profile_conf"
 
 mairix -f $MAIRIXRC "$@"
+mairix_exit=$?
 
-if [ $? = 0 ]; then
+if [ $mairix_exit = 0 ]; then
     if [ -n "$view" ]; then
         xterm -title "mairix search: $*" \
               -e "unset COLUMNS;
@@ -48,3 +49,5 @@ if [ $? = 0 ]; then
                  " &
     fi
 fi
+
+exit $mairix_exit
