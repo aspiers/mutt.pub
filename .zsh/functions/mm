@@ -1,0 +1,14 @@
+#autoload
+
+mm () {
+  setopt local_traps
+  trap 'cxx' INT EXIT QUIT KILL
+  cx mutt
+  . ~/lib/personal-mail.sh
+  mutt -F ~/.mutt/$MAIL_PROFILE "$@"
+}
+
+compdef _mutt mm
+
+mm "$@"
+
