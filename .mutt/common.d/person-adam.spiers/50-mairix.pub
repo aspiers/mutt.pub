@@ -4,13 +4,13 @@ macro pager "\eB"  "<pipe-message>mairix-copy-message --threads\n" "Extract thre
 macro index "\em"  "<pipe-message>mairix-copy-message --ids\n" "Extract message id(s) into mairix clipboard"
 macro index "\eB"  "<pipe-message>mairix-copy-message --threads\n" "Extract thread subject(s) into mairix clipboard"
 
-macro index A "<pipe-message>mairix-wrapper field Subject<return><change-folder-readonly>~/mail/$MAIL_PROFILE/mairix<return>" "Search for other messages with the same subject as this email, via mairix"
-macro pager A "<pipe-message>mairix-wrapper field Subject<return><change-folder-readonly>~/mail/$MAIL_PROFILE/mairix<return>" "Search for other messages with the same subject as this email, via mairix"
+macro index A "<pipe-message>mairix-wrapper field Subject<return><change-folder-readonly>$MAIRIX_RESULTS<return>" "Search for other messages with the same subject as this email, via mairix"
+macro pager A "<pipe-message>mairix-wrapper field Subject<return><change-folder-readonly>$MAIRIX_RESULTS<return>" "Search for other messages with the same subject as this email, via mairix"
 
-macro index S "<shell-escape>rlwrap -H ~/.mairix/$MAIL_PROFILE/mairix-wrapper_history mairix-wrapper prompt<return><change-folder-readonly>~/mail/$MAIL_PROFILE/mairix<return>" "Search via mairix"
-macro pager S "<shell-escape>rlwrap -H ~/.mairix/$MAIL_PROFILE/mairix-wrapper_history mairix-wrapper prompt<return><change-folder-readonly>~/mail/$MAIL_PROFILE/mairix<return>" "Search via mairix"
+macro index S "<shell-escape>rlwrap -H $MAIRIX_DIR/mairix-wrapper_history mairix-wrapper prompt<return><change-folder-readonly>$MAIRIX_RESULTS<return>" "Search via mairix"
+macro pager S "<shell-escape>rlwrap -H $MAIRIX_DIR/mairix-wrapper_history mairix-wrapper prompt<return><change-folder-readonly>$MAIRIX_RESULTS<return>" "Search via mairix"
 
-macro index @ "<pipe-message>display-filename ~/mail/$MAIL_PROFILE/mairix<return>"
-macro pager @ "<pipe-message>display-filename ~/mail/$MAIL_PROFILE/mairix<return>"
+macro index @ "<pipe-message>display-filename $MAIRIX_RESULTS<return>"
+macro pager @ "<pipe-message>display-filename $MAIRIX_RESULTS<return>"
 
-mailboxes ~/mail/$MAIL_PROFILE/mairix
+mailboxes $MAIRIX_RESULTS

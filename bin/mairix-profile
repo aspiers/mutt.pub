@@ -1,0 +1,49 @@
+#!/bin/sh
+
+me=`basename $0`
+
+usage () {
+    cat <<EOF >&2
+Usage: $me [options] PROFILE MAIRIX_ARGS
+Options (must be in order specified above!)
+  --view      View search results (if any)
+  --help, -h  Display this help
+EOF
+    exit 1
+}
+
+if [ "$1" == -h ] || [ "$1" == --help ]; then
+    usage
+fi
+
+if [ "$1" = --view ]; then
+    view=yes
+    shift
+fi
+
+if [ $# -lt 2 ]; then
+    usage
+fi
+
+profile="$1"
+profile_conf=$HOME/lib/$profile-mail.sh
+
+if ! [ -e "$profile_conf" ]; then
+    echo "Couldn't find $profile_conf" >&2
+    usage
+fi
+
+. "$profile_conf"
+
+mairix -f $MAIRIXRC "$@"
+
+if [ $? = 0 ]; then
+    if [ -n "$view" ]; then
+        xterm -title "mairix search: $*" \
+              -e "unset COLUMNS;
+                  mutt -F ~/.mutt/$MAIL_PROFILE \
+                       -f $MAIRIX_RESULTS \
+                       -e 'push <display-message>'
+                 " &
+    fi
+fi

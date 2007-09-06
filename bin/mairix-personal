@@ -1,4 +1,0 @@
-#!/bin/sh
-
-. ~/lib/personal-mail.sh
-mairix -f $MAIRIXRC "$@"
