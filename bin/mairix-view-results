@@ -1,0 +1,8 @@
+#!/bin/sh
+
+xterm -title "mairix search: $*" \
+      -e "unset COLUMNS;
+          mutt -F ~/.mutt/$MAIL_PROFILE
+               -f $MAIRIX_RESULTS
+               -e 'push <display-message>'
+         " &
