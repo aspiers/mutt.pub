@@ -4,7 +4,7 @@ me=`basename $0`
 
 usage () {
     cat <<EOF >&2
-Usage: $me [options] PROFILE MAIRIX_ARGS
+Usage: $me [options] PROFILE [MAIRIX_ARGS]
 Options (must be in order specified above!)
   --view      View search results (if any)
   --help, -h  Display this help
@@ -21,11 +21,12 @@ if [ "$1" = --view ]; then
     shift
 fi
 
-if [ $# -lt 2 ]; then
+if [ $# -lt 1 ]; then
     usage
 fi
 
 profile="$1"
+shift
 profile_conf=$HOME/lib/$profile-mail.sh
 
 if ! [ -e "$profile_conf" ]; then
