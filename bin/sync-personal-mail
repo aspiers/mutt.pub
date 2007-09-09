@@ -1,4 +1,4 @@
 #!/bin/sh
 
 fetchmail
-mairix-personal
+mairix-profile personal
