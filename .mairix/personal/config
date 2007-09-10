@@ -7,6 +7,7 @@ maildir=archive...
 maildir=drafts...
 mbox=inboxes/OLD-MBOXES/*
 omit=in/raw.*
+omit=inboxes/OLD-MBOXES/me
 
 # Where does the results folder get created? (relative to base)
 mfolder=mairix
