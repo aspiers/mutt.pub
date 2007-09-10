@@ -14,3 +14,4 @@ macro index @ "<pipe-message>display-filename $MAIRIX_RESULTS<return>"
 macro pager @ "<pipe-message>display-filename $MAIRIX_RESULTS<return>"
 
 mailboxes $MAIRIX_RESULTS
+unignore X-source-folder
