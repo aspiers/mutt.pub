@@ -39,14 +39,27 @@ fi
 mairix -f $MAIRIXRC "$@"
 mairix_exit=$?
 
-if [ $mairix_exit = 0 ]; then
-    if [ -n "$view" ]; then
+if [ -n "$view" ]; then
+    if [ $mairix_exit = 0 ]; then
+        # Don't background this xterm call here!  If you do, calling
+        # this wrapper script within emacs will have the following
+        # behaviour:
+        #
+        # - If invoked via M-x shell-command mairix-profile ... &
+        #   the xterm will never launch.
+        # - If invoked via M-x shell-command mairix-profile ...
+        #   emacs will hang until the xterm completes.
+        #
+        # Presumably this is due to some deficiency in the job control
+        # capabilities of the shell launched by `shell-command'.
         xterm -title "mairix search: $*" \
               -e "unset COLUMNS;
                   mutt -F ~/.mutt/$MAIL_PROFILE \
                        -f $MAIRIX_RESULTS \
                        -e 'push <display-message>'
-                 " &
+                 "
+    else
+        echo "mairix search failed; will not launch xterm" >&2
     fi
 fi
 
