@@ -1,7 +1,9 @@
 macro pager "\em"  "<pipe-message>mairix-copy-message --ids\n" "Extract message id(s) into mairix clipboard"
+macro pager "\eM"  "<pipe-message>mairix-copy-message --ids\n<shell-escape>switch-feed-emacs < ~/lib/xmacro/org-remember\ns" "org-remember"
 macro pager "\eB"  "<pipe-message>mairix-copy-message --threads\n" "Extract thread subject(s) into mairix clipboard"
 
 macro index "\em"  "<pipe-message>mairix-copy-message --ids\n" "Extract message id(s) into mairix clipboard"
+macro index "\eM"  "<pipe-message>mairix-copy-message --ids\n<shell-escape>switch-feed-emacs < ~/lib/xmacro/org-remember\ns" "org-remember"
 macro index "\eB"  "<pipe-message>mairix-copy-message --threads\n" "Extract thread subject(s) into mairix clipboard"
 
 macro index A "<pipe-message>mairix-wrapper field Subject<return><change-folder-readonly>$MAIRIX_RESULTS<return>" "Search for other messages with the same subject as this email, via mairix"
