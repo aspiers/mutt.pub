@@ -4,8 +4,9 @@ mailboxes !
 
 #macro index,pager i  "<change-folder>=in/\t\tj"  "show main inboxes"
 
-# IIRC there's some weird behaviour here I couldn't explain
 macro index i  "<change-folder><kill-line>\t\tjj"  "show main inboxes"
+# For some reason, "<change-folder>?" ensures that the user will return
+# to the pager on quit, not the index.
 macro pager i  "<change-folder>?<toggle-mailboxes>jj"  "show main inboxes"
 
 # last matching rule wins
