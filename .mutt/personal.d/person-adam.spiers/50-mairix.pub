@@ -1,0 +1,1 @@
+macro index,pager "\eR"  "<pipe-message>mairix-copy-message --ids --no-wait\n<shell-escape>switch-feed-emacs < ~/lib/xmacro/org-remember-personal-mail\ns" "org-remember personal mail"
