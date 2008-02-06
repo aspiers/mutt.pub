@@ -1,9 +1,10 @@
-macro index,pager "\em"  "<pipe-message>mairix-copy-message --ids\n" "Extract message id(s) into mairix clipboard"
-macro index,pager "\eB"  "<pipe-message>mairix-copy-message --threads\n" "Extract thread subject(s) into mairix clipboard"
+macro index,pager "\em"  "<pipe-message>mairix-copy-message --ids\n" "extract message id(s) into mairix clipboard"
+macro index,pager "\eB"  "<pipe-message>mairix-copy-message --threads\n" "extract thread subject(s) into mairix clipboard"
 
-macro index,pager A "<pipe-message>mairix-wrapper field Subject<return><change-folder-readonly>$MAIRIX_RESULTS<return>" "Search for other messages with the same subject as this email, via mairix"
+macro index,pager A "<pipe-message>mairix-wrapper field Subject<return><change-folder-readonly>$MAIRIX_RESULTS<return>" "search for other messages with the same subject as this email, via mairix"
+macro index,pager "\eA" "<pipe-message>mairix-wrapper --threads field Message-Id<return><change-folder-readonly>$MAIRIX_RESULTS<return>" "search for other messages in the same thread as this email, via mairix"
 
-macro index,pager S "<shell-escape>rlwrap -H $MAIRIX_DIR/mairix-wrapper_history mairix-wrapper prompt<return><change-folder-readonly>$MAIRIX_RESULTS<return>" "Search via mairix"
+macro index,pager S "<shell-escape>rlwrap -H $MAIRIX_DIR/mairix-wrapper_history mairix-wrapper prompt<return><change-folder-readonly>$MAIRIX_RESULTS<return>" "search via mairix"
 
 macro index,pager @ "<pipe-message>display-filename $MAIRIX_RESULTS<return>"
 
