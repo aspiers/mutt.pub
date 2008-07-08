@@ -1,0 +1,7 @@
+# -*- mode: sh -*-
+
+#set sendmail="/usr/bin/ssh -o ClearAllForwardings=yes f5.mandolinarchive.com sendmail -oem -oi -f f5-sendmail@adamspiers.org"
+
+set sendmail="/usr/bin/msmtp -C $HOME/mail/personal/.msmtprc"
+
+# See also ~/.mutt/work.d/person-adam.spiers/50-novell+smtp.pub
