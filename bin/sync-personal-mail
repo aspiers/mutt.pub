@@ -1,4 +1,58 @@
-#!/bin/sh
+#!/bin/bash
 
-fetchmail
-mairix-profile personal
+. ~/lib/personal-mail.sh
+
+DEBUG=
+#DEBUGFLAGS=imap
+#DEBUGFLAGS=maildir
+DEBUGFLAGS=imap,maildir
+#DEBUGFLAGS=imap,maildir,thread
+
+# Uncomment this to enable debugging:
+#DEBUG="-1 -d $DEBUGFLAGS -l $OFFLINEIMAP_LOG_DEBUG"
+
+me=`basename $0`
+
+if ! [ -t 1 ]; then
+  exec >> "$OFFLINEIMAP_LOG" 2>&1
+fi
+
+post_sync () {
+  echo "`date` starting mairix ..."
+  if mairix-profile $MAIL_PROFILE; then
+    echo "`date` mairix completed OK"
+  else
+    echo "`date` mairix error!" >&2
+  fi
+}
+
+# Don't choke GPRS connection unless explicitly requested run interactively
+if [ "`gw-dev`" == ppp0 ] && ! [ -t 1 ]; then
+  echo "`date` gateway interface is ppp0, automatic mail sync disabled"
+  exit 0 # consider success, don't exp back-off
+fi
+
+server=$OFFLINEIMAP_SERVER
+if ! isup $server; then
+  echo "`date` $server not reachable, skipping mail sync"
+#  exit 0 # consider success, don't exp back-off
+fi
+
+if [ -t 1 ]; then
+  ui=
+else
+  echo "================================================"
+  date
+  ui='-u Noninteractive.Basic'
+fi
+
+offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui
+status=$?
+
+post_sync
+
+[ "$status" = 0 ] || echo "offlineimap run failed with exit code $status" >&2
+exit $status
+
+#fetchmail
+#echo "`date` fetchmail finished; exit code $?"
