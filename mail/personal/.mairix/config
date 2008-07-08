@@ -22,4 +22,4 @@ mfolder=mairix
 mformat=maildir
 
 # Where does the index database live?
-database=~/.mairix/personal/index-$MAIRIX_VERSION
+database=$MAIRIX_DIR/index-$MAIRIX_VERSION
