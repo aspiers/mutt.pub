@@ -2,6 +2,7 @@ base=~/mail/personal
 # N.B. Can also use $FOO or ${FOO} here
 
 maildir=in...
+maildir=offlineimap...
 maildir=inboxes...
 maildir=archive...
 maildir=drafts...
@@ -10,6 +11,9 @@ maildir=../novell/my-archive/Personal*
 mbox=inboxes/OLD-MBOXES/*
 omit=in/raw.*
 omit=inboxes/OLD-MBOXES/me
+# I don't understand; this seems to work for Spam but not Bin:
+omit="offlineimap/[Google Mail].Spam"
+omit="offlineimap/[Google Mail].Bin"
 
 # Where does the results folder get created? (relative to base)
 mfolder=mairix
