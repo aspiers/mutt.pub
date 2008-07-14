@@ -46,7 +46,7 @@ else
   ui='-u Noninteractive.Basic'
 fi
 
-offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui
+offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
 status=$?
 
 post_sync
