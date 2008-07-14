@@ -10,6 +10,7 @@ export MAIRIX_VERSION=$( mairix --version | awk '{print $2}' )
 
 export OFFLINEIMAP_CONF=$MAIL_PROFILE_DIR/.offlineimaprc
 export OFFLINEIMAP_MAIL_DIR=$MAIL_PROFILE_DIR/offlineimap
+export OFFLINEIMAP_STATE_DIR=$MAIL_PROFILE_DIR/.offlineimap
 export OFFLINEIMAP_DEFAULT_ACCOUNT=$( grep '^accounts' $OFFLINEIMAP_CONF | awk '{print $3}' )
 export OFFLINEIMAP_LOG_DIR=$MAIL_PROFILE_LOG/offlineimap/`date +%Y/%m`
 export OFFLINEIMAP_LOG=$OFFLINEIMAP_LOG_DIR/`date +%d`
