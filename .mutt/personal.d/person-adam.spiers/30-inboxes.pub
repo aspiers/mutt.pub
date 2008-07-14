@@ -1,13 +1,14 @@
 set spoolfile="=in/MAIN"
 
 mailboxes !
+mailboxes =offlineimap/INBOX
 
 #macro index,pager i  "<change-folder>=in/\t\tj"  "show main inboxes"
 
-macro index i  "<change-folder><kill-line>\t\tjj"  "show main inboxes"
+macro index i  "<change-folder><kill-line>\t\tj"  "show main inboxes"
 # For some reason, "<change-folder>?" ensures that the user will return
 # to the pager on quit, not the index.
-macro pager i  "<change-folder>?<toggle-mailboxes>jj"  "show main inboxes"
+macro pager i  "<change-folder>?<toggle-mailboxes>j"  "show main inboxes"
 
 # last matching rule wins
 
