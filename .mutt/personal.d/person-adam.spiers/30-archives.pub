@@ -1,3 +1,12 @@
+# These are managed by gmail filters
+mailboxes =offlineimap/`date +'%Y-%m' -d "$(date +%Y-%m-15) -2 months"`
+mailboxes =offlineimap/`date +'%Y-%m' -d "$(date +%Y-%m-15) -1 month"`
+mailboxes =offlineimap/`date +'%Y-%m'`
+
+# And these are the ones I save/fcc to.  I could just delete the mail
+# but in the future I might use these as offline archives if gmail
+# gets too full to hold everything.
+
 mailboxes =archive/gm/`date +'%Y-%m' -d "$(date +%Y-%m-15) -2 months"`
 mailboxes =archive/gm/`date +'%Y-%m' -d "$(date +%Y-%m-15) -1 month"`
 mailboxes =archive/gm/`date +'%Y-%m'`
