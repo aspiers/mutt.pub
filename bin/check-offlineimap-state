@@ -1,0 +1,28 @@
+#!/bin/bash
+
+me=`basename $0`
+
+usage () {
+    cat <<EOF >&2
+Usage: $me [options] PROFILE [ACCOUNT [MAILDIRS]]
+EOF
+    exit 1
+}
+
+if [ -z "$1" ] || [ "$1" == '-h' ] || [ "$1" == '--help' ]; then
+    usage
+fi
+
+profile="$1"
+shift
+
+profilesh="$ZDOTDIR/lib/${profile}-mail.sh"
+
+if ! [ -e "$profilesh" ]; then
+    echo "Invalid profile: $profilesh does not exist; aborting." >&2
+    exit 1
+fi
+
+. "$profilesh"
+
+check-offlineimap-state.rb "$@"
