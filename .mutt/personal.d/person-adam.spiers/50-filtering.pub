@@ -3,7 +3,6 @@ unignore x-filter-accepted x-filter-rejected
 unignore x-cron-env x-seq x-hn-forum
 unignore x-spam-status
 #unignore x-spam-level
-unignore x-crm114
 
 macro index "\ef"  ";|formail -s parp -ev\n"   "parp: extract Friends"
 
