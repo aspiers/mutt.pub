@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# mbox archives downloaded from mailman sometimes have the '@' in the
+# From envelopes munged to ' at ' for privacy reasons.  However this
+# stops the mbox being an mbox, so the likes of mutt and mairix don't
+# understand it.  Bad mailman!
+
+# This script converts it back post-download.
+
+perl -wlpi.bak -e 's/^From (\S+) at (\S+)  /From $1\@$2  /'
