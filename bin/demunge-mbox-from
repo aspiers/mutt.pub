@@ -7,4 +7,4 @@
 
 # This script converts it back post-download.
 
-perl -wlpi.bak -e 's/^From (\S+) at (\S+)  /From $1\@$2  /'
+perl -wlpi -e 's/^From (\S+) at (\S+)  /From $1\@$2  /' "$@"
