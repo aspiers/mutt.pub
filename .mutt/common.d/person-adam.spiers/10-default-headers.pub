@@ -1,0 +1,2 @@
+send-hook . "unmy_hdr From:"
+send-hook . "unmy_hdr Reply-To:"
