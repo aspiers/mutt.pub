@@ -1,2 +1,9 @@
+# From http://wiki.mutt.org/?MuttFaq/Header
+#
+# Explanation:
+#   my_hdr settings persist within a mutt session (process), therefore
+#   if (say) a send-hook sets them after replying to one mail, it will
+#   need to be removed before another hook can apply a new my_hdr.
+
 send-hook . "unmy_hdr From:"
 send-hook . "unmy_hdr Reply-To:"
