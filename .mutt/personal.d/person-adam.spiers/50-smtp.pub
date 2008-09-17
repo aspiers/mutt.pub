@@ -2,6 +2,8 @@
 
 #set sendmail="/usr/bin/ssh -o ClearAllForwardings=yes f5.mandolinarchive.com sendmail -oem -oi -f f5-sendmail@adamspiers.org"
 
-set sendmail="/usr/bin/msmtp -C $HOME/mail/personal/.msmtprc"
+# --read-envelope-from copies 'envelope from' from From: header
+# Not sure if this is needed actually.
+set sendmail="/usr/bin/msmtp --read-envelope-from -C $HOME/mail/personal/.msmtprc"
 
 # See also ~/.mutt/work.d/person-adam.spiers/50-novell+smtp.pub
