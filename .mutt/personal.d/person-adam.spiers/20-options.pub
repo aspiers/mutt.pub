@@ -2,5 +2,5 @@ set alias_file=~/.cfg/mutt.sec/.mutt/common.d/person-adam.spiers/50-alias-incomi
 
 # Using reverse_name option for replies, but need a default
 # from address:
-set from=adam@spiers.net
+set from=adam@adamspiers.org
 # See http://wiki.mutt.org/%3FMuttFaq/Header for more info
