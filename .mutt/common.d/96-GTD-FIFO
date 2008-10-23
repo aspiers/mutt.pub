@@ -2,5 +2,6 @@
 # In other words, if you read a mail, you *have* to process it.
 # So let's limit what we can see by default to the first thread;
 # hopefully this will force me to adopt a FIFO habit.
-push "<limit>~(~m 1)<enter><display-message>"
 
+# note that unquoted ! is a negation unary operator
+folder-hook '!' 'push "<limit>~(~m 1)<enter><display-message>"'
