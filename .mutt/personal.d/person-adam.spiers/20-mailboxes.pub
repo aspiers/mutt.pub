@@ -2,5 +2,5 @@
 # since '=' gets expanded at set-time not use-time :-(
 set folder="~/mail/personal"
 
-set postponed="=drafts"
+set postponed="=offlineimap/[Google Mail].Drafts"
 
