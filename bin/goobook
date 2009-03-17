@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. ~/lib/personal-mail.sh
+
+PYTHONPATH=$MAIL_PROFILE_DIR/.goobook \
+    ~/roaming/mail/goobook/contactos.py "$@"

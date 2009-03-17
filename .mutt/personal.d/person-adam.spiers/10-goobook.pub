@@ -1,0 +1,5 @@
+# requires python-gdata to be installed
+
+set query_command = "goobook '%s'"
+bind editor ^T complete-query
+# TAB bound to complete
