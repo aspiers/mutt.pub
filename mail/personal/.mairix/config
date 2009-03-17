@@ -8,6 +8,7 @@ maildir=archive...
 maildir=drafts...
 maildir=../novell/offlineimap/personal*
 maildir=../novell/my-archive/Personal*
+mbox=archive/OW*
 mbox=inboxes/OLD-MBOXES/*
 omit=in/raw.*
 omit=inboxes/OLD-MBOXES/me
