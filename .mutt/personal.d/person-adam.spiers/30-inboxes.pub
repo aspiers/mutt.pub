@@ -12,4 +12,3 @@ macro pager i  "<change-folder>?<toggle-mailboxes>j"  "show main inboxes"
 
 # last matching rule wins
 
-macro editor <f2> "<kill-line>=in/reading"
