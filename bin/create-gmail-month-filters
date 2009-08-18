@@ -1,0 +1,47 @@
+#!/usr/bin/ruby
+#
+# Create gmail filters file for import into gmail web UI
+# via gmail labs 'import/export filters' feature.
+
+
+ME = File.basename($0)
+
+unless ARGV.length == 1
+  $stderr.puts "Usage: #{ME} year"
+  exit 1
+end
+
+require 'erb'
+
+puts <<EOHEADER
+<?xml version='1.0' encoding='UTF-8'?><feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
+EOHEADER
+
+template = ERB.new <<EOTEMPLATE
+	<title>Mail Filters</title>
+	<author>
+		<name>Adam Spiers</name>
+		<email>adam.spiers@gmail.com</email>
+	</author>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<apps:property name='hasTheWord' value='after:<%= start_year %>/<%= start_month %>/01 before:<%= end_year %>/<%= end_month %>/01'/>
+		<apps:property name='label' value='<%= start_year %>-<%= start_month %>'/>
+	</entry>
+EOTEMPLATE
+
+start_year = ARGV[0]
+(1..11).each do |month|
+  start_month = "%02d" % month
+  end_month   = "%02d" % (month+1)
+  end_year    = start_year
+  puts template.result(binding)
+end
+
+start_month = '12'
+end_month   = '01'
+end_year    = start_year.to_i + 1
+puts template.result(binding)
+
+puts "</feed>"
