@@ -2,7 +2,15 @@
 #
 # Create gmail filters file for import into gmail web UI
 # via gmail labs 'import/export filters' feature.
-
+#
+# Note that importing these filters and selecting the "Apply new
+# filters to existing email" checkbox will cause *all* messages in an
+# existing discussion thread to receive the new label, which means
+# that monthly IMAP folders will get very fat with all the duplicates
+# caused by discussion threads spanning multiple months.  The
+# duplicates can be cleaned up via an IMAP client which operates on
+# individual messages when it comes to labelling operations (as
+# opposed to the web UI which operates on entire threads).
 
 ME = File.basename($0)
 
