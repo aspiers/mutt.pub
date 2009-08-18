@@ -1,0 +1,7 @@
+#!/bin/sh
+
+unset STY
+
+. ~/lib/personal-mail.sh
+
+top-term screen -c ~/.screen.d/mail-watcher
