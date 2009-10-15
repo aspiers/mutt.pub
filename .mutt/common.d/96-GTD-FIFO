@@ -4,4 +4,11 @@
 # hopefully this will force me to adopt a FIFO habit.
 
 # note that unquoted ! is a negation unary operator
-folder-hook '!' 'push "<limit>~(~m 1)<enter><display-message>"'
+#
+# ~m 1 means first message
+#
+# ~(~m 1) means any message in same thread as first message
+# but for some reason this sometimes excludes the first message
+# so we OR them together:
+
+folder-hook '!' 'push "<limit>~m 1 | ~(~m 1)<enter><display-message>"'
