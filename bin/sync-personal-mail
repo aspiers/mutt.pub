@@ -18,8 +18,11 @@ if ! [ -t 1 ]; then
 fi
 
 post_sync () {
+  # offlineimap's default interactive UI messes up the tty
+  [ -t 1 ] && reset
+
   echo "`date` starting mairix ..."
-  if mairix-profile $MAIL_PROFILE; then
+  if nice -n 15 mairix-profile $MAIL_PROFILE; then
     echo "`date` mairix completed OK"
   else
     echo "`date` mairix error!" >&2
@@ -46,7 +49,7 @@ else
   ui='-u Noninteractive.Basic'
 fi
 
-offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
+nice -n 10 offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
 status=$?
 
 post_sync
