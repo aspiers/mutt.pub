@@ -1,4 +1,6 @@
 set certificate_file=~/.mutt/certificates
-set editor="switch-to-emacsclient"
+
+# default to $VISUAL or $EDITOR or vi
+#set editor="quick-emacs"
 
 #set record="PLEASE CHOOSE AN FCC FOLDER!"
