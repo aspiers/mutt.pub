@@ -22,3 +22,5 @@ export OFFLINEIMAP_SLEEP_PID_FILE=$MAIL_PROFILE_DIR/.offlineimap-sleep.pid
 
 export MAIL_DAEMON_LOG=$MAIL_PROFILE_LOG/daemon.log
 export MAIL_DAEMON_LOCK=$MAIL_PROFILE_DIR/.daemon.lock
+
+export MSMTP_CONFIG=$MAIL_PROFILE_DIR/.msmtprc
