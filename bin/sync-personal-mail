@@ -3,6 +3,7 @@
 . ~/lib/personal-mail.sh
 
 DEBUG=
+#DEBUG="-l $OFFLINEIMAP_LOG"
 #DEBUGFLAGS=imap
 #DEBUGFLAGS=maildir
 DEBUGFLAGS=imap,maildir
