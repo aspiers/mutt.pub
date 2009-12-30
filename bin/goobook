@@ -3,4 +3,4 @@
 . ~/lib/personal-mail.sh
 
 PYTHONPATH=$MAIL_PROFILE_DIR/.goobook \
-    ~/roaming/mail/goobook/contactos.py "$@"
+    ~/roaming/mail/goobook.svn/goobook.py "$@"
