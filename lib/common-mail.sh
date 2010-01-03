@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Set $VISUAL / $EDITOR
-. $ZDOTDIR/.shared_env
+. ~/.shared_env
 
 export MAIL_PROFILE_DIR=$HOME/mail/$MAIL_PROFILE
 export MAIL_PROFILE_LOG=$MAIL_PROFILE_DIR/log
