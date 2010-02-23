@@ -4,9 +4,6 @@
 
 set sendmail="msmtp-personal"
 
-# Send mail using the 'novell' account configured in .msmtprc
-set sendmail="/usr/bin/msmtp -C $HOME/mail/novell/.msmtprc -a novell"
-
 # http://msmtp.sourceforge.net/msmtp.html#Using-msmtp-with-Mutt
 # Define <tab> and = in order to switch or see the current msmtp account
 # Don't forget to put the right path for msmtp binary
