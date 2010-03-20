@@ -1,5 +1,7 @@
 # -*- mode: sh -*-
 
+# See also ~/.mutt/work.d/person-adam.spiers/50-novell+smtp.pub
+
 #set sendmail="/usr/bin/ssh -o ClearAllForwardings=yes f5.mandolinarchive.com sendmail -oem -oi -f f5-sendmail@adamspiers.org"
 
 set sendmail="msmtp-personal"
@@ -8,8 +10,10 @@ set sendmail="msmtp-personal"
 # Define <tab> and = in order to switch or see the current msmtp account
 # Don't forget to put the right path for msmtp binary
 macro compose \Cx_ ":set sendmail"
-# full path is mandatory here for some reason :-(
-macro compose \Cx| "\Cx_ = \"/usr/bin/msmtp -C $HOME/mail/personal/.msmtprc"
+
+# Full path is mandatory here for some reason :-(
+# -- is it? gonna try without since switch to msmtp-personal wrapper.
+macro compose \Cx| "\Cx_ = \"msmtp-personal"
 macro compose \Cx& ":macro compose \\t \\Cx"
 macro compose <tab> "\Cx0"
 macro compose = "\Cx_\n"
@@ -20,4 +24,3 @@ macro compose \Cx0 "\Cx|\"\n\Cx&1\n\Cx_\n"                   # use default and b
 macro compose \Cx1 "\Cx| -a google\"\n\Cx&0\n\Cx_\n"  # use ssh tunnel and bind to switch-to-0
 # End of the accounts
 
-# See also ~/.mutt/work.d/person-adam.spiers/50-novell+smtp.pub
