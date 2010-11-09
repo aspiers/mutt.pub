@@ -4,7 +4,7 @@
 
 #set sendmail="/usr/bin/ssh -o ClearAllForwardings=yes f5.mandolinarchive.com sendmail -oem -oi -f f5-sendmail@adamspiers.org"
 
-set sendmail="msmtp-personal"
+set sendmail="msmtp-personal -a arctic"
 
 # http://msmtp.sourceforge.net/msmtp.html#Using-msmtp-with-Mutt
 # Define <tab> and = in order to switch or see the current msmtp account
@@ -20,7 +20,7 @@ macro compose = "\Cx_\n"
 # Put the account in the following lines (here two accounts)
 # Don't forget to put the number of the account at the beginning
 # of the line, and the number of the next account after the '&'
-macro compose \Cx0 "\Cx|\"\n\Cx&1\n\Cx_\n"                   # use default and bind to switch-to-1
+macro compose \Cx0 "\Cx| -a arctic\"\n\Cx&1\n\Cx_\n"                   # use default and bind to switch-to-1
 macro compose \Cx1 "\Cx| -a google\"\n\Cx&0\n\Cx_\n"  # use ssh tunnel and bind to switch-to-0
 # End of the accounts
 
