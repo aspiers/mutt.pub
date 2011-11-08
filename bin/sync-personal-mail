@@ -18,45 +18,61 @@ if ! [ -t 1 ]; then
   exec >> "$OFFLINEIMAP_LOG" 2>&1
 fi
 
-post_sync () {
-  # offlineimap's default interactive UI messes up the tty
-  [ -t 1 ] && reset
+check_net_connection () {
+    # Don't choke GPRS connection unless explicitly requested run interactively
+    if [ "`gw-dev`" == ppp0 ] && ! [ -t 1 ]; then
+        echo "`date` gateway interface is ppp0, automatic mail sync disabled"
+        exit 0 # consider success, don't exp back-off
+    fi
 
-  echo "`date` starting mairix ..."
-  if nice -n 15 mairix-profile $MAIL_PROFILE; then
-    echo "`date` mairix completed OK"
-  else
-    echo "`date` mairix error!" >&2
-  fi
+    server=$OFFLINEIMAP_SERVER
+    if ! isup $server; then
+        echo "`date` $server not reachable, skipping mail sync"
+        exit 0 # consider success, don't exp back-off
+    fi
 }
 
-# Don't choke GPRS connection unless explicitly requested run interactively
-if [ "`gw-dev`" == ppp0 ] && ! [ -t 1 ]; then
-  echo "`date` gateway interface is ppp0, automatic mail sync disabled"
-  exit 0 # consider success, don't exp back-off
-fi
+run_offlineimap () {
+    if [ -t 1 ]; then
+        ui='-u blinkenlights'
+    else
+        echo "================================================"
+        date
+        ui='-u Noninteractive.Basic'
+    fi
 
-server=$OFFLINEIMAP_SERVER
-if ! isup $server; then
-  echo "`date` $server not reachable, skipping mail sync"
-#  exit 0 # consider success, don't exp back-off
-fi
+    #nice -n 10 offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
+    offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
+    status=$?
+    echo "offlineimap run exited with code $status"
 
-if [ -t 1 ]; then
-  ui=
-else
-  echo "================================================"
-  date
-  ui='-u Noninteractive.Basic'
-fi
+    # offlineimap's default interactive UI messes up the tty
+    #[ -t 1 ] && reset
+}
 
-nice -n 10 offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
-status=$?
+run_mairix () {
+    echo "`date` starting mairix ..."
+    if nice -n 15 mairix-profile $MAIL_PROFILE; then
+        echo "`date` mairix completed OK"
+    else
+        echo "`date` mairix error!" >&2
+    fi
+}
 
-post_sync
+main () {
+    check_net_connection
 
-[ "$status" = 0 ] || echo "offlineimap run failed with exit code $status" >&2
-exit $status
+    run_offlineimap
 
-#fetchmail
-#echo "`date` fetchmail finished; exit code $?"
+    if [ "$status" = 0 ]; then
+        run_mairix
+    else
+        # This won't happen if there's credential failure in
+        # offlineimap because it still exits 0.
+        echo "offlineimap run failed with exit code $status" >&2
+    fi
+
+    exit $status
+}
+
+main
