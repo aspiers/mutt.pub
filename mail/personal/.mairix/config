@@ -6,12 +6,11 @@ maildir=offlineimap...
 maildir=inboxes...
 maildir=archive...
 maildir=drafts...
-maildir=../novell/offlineimap/personal*
-maildir=../novell/my-archive/Personal*
 mbox=archive/OW*
 mbox=inboxes/OLD-MBOXES/*
 omit=in/raw.*
 omit=inboxes/OLD-MBOXES/me
+omit="offlineimap/[Google Mail].All Mail"
 # I don't understand; this seems to work for Spam but not Bin:
 omit="offlineimap/[Google Mail].Spam"
 omit="offlineimap/[Google Mail].Bin"
