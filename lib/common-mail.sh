@@ -9,7 +9,13 @@ export MAIL_PROFILE_LOG=$MAIL_PROFILE_DIR/log
 export MAIRIX_DIR=$MAIL_PROFILE_DIR/.mairix
 export MAIRIXRC=$MAIRIX_DIR/config
 export MAIRIX_RESULTS=$MAIL_PROFILE_DIR/mairix
-export MAIRIX_VERSION=$( mairix --version | awk '{print $2}' )
+
+if which mairix >/dev/null 2>&1; then
+    export MAIRIX_VERSION=$( mairix --version | awk '{print $2}' )
+else
+    echo "Warning: mairix not installed" >&2
+    export MAIRIX_VERSION=not-installed
+fi
 
 export OFFLINEIMAP_CONF=$MAIL_PROFILE_DIR/.offlineimaprc
 export OFFLINEIMAP_MAIL_DIR=$MAIL_PROFILE_DIR/offlineimap
