@@ -1,4 +1,5 @@
-set spoolfile="=in/MAIN"
+set spoolfile="=inboxes/MAIN"
+#set spoolfile="=offlineimap/INBOX"
 
 mailboxes !
 mailboxes =offlineimap/INBOX
