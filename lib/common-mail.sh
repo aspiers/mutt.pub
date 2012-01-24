@@ -33,3 +33,6 @@ export MAIL_DAEMON_LOG=$MAIL_PROFILE_LOG/daemon.log
 export MAIL_DAEMON_LOCK=$MAIL_PROFILE_DIR/.daemon.lock
 
 export MSMTP_CONFIG=$MAIL_PROFILE_DIR/.msmtprc
+
+# Needed so smime_keys can query the current mutt config
+export MUTT_CMDLINE="mutt -F $HOME/.mutt/$MAIL_PROFILE"
