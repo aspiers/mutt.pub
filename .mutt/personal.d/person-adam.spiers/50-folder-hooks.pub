@@ -8,4 +8,4 @@ folder-hook =in/retry/is-ham             'push "<tag-pattern>all\n;| mailfilter.
 folder-hook =in/SAFE$                    'push "<delete-pattern>~r >1w\n"'
 folder-hook =backup$                          'push "<delete-pattern>~r >1w\n"'
 
-folder-hook =lists/                           source ~/.mutt/mailing-list
+folder-hook =lists/                           source ~/.mutt/lib/mailing-list-defaults
