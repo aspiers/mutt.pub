@@ -1,8 +1,9 @@
-set spoolfile="=inboxes/MAIN"
-#set spoolfile="=offlineimap/INBOX"
+#set spoolfile="=inboxes/MAIN"
+set spoolfile="=offlineimap/INBOX"
 
 mailboxes !
 mailboxes =offlineimap/INBOX
+mailboxes =offlineimap/involved
 
 #macro index,pager i  "<change-folder>=in/\t\tj"  "show main inboxes"
 
