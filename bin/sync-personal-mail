@@ -35,10 +35,12 @@ check_net_connection () {
 run_offlineimap () {
     if [ -t 1 ]; then
         ui='-u blinkenlights'
+        ui='-u ttyui'
     else
         echo "================================================"
         date
         ui='-u Noninteractive.Basic'
+        ui='-u ttyui'
     fi
 
     #nice -n 10 offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
