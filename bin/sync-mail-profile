@@ -1,0 +1,98 @@
+#!/bin/bash
+
+me=`basename $0`
+
+if [ $# != 1 ]; then
+    echo "Usage: $me PROFILE-FILE" >&2
+    exit 1
+fi
+
+profile="$1"
+if ! [ -e "$profile" ]; then
+    echo "$profile does not exist; aborting." >&2
+    exit 2
+fi
+
+. "$1"
+
+if [ -z "$OFFLINEIMAP_CONF" ]; then
+    echo "Error loading $profile; aborting." >&2
+    exit 3
+fi
+
+DEBUG=
+#DEBUG="-l $OFFLINEIMAP_LOG"
+#DEBUGFLAGS=imap
+#DEBUGFLAGS=maildir
+DEBUGFLAGS=imap,maildir
+#DEBUGFLAGS=imap,maildir,thread
+
+# Uncomment this to enable debugging:
+#DEBUG="-1 -d $DEBUGFLAGS -l $OFFLINEIMAP_LOG_DEBUG"
+
+me=`basename $0`
+
+if ! [ -t 1 ]; then
+  exec >> "$OFFLINEIMAP_LOG" 2>&1
+fi
+
+check_net_connection () {
+    # Don't choke GPRS connection unless explicitly requested run interactively
+    if [ "`gw-dev`" == ppp0 ] && ! [ -t 1 ]; then
+        echo "`date` gateway interface is ppp0, automatic mail sync disabled"
+        exit 0 # consider success, don't exp back-off
+    fi
+
+    server=$OFFLINEIMAP_SERVER
+    if ! isup $server; then
+        echo "`date` $server not reachable, skipping mail sync"
+        exit 0 # consider success, don't exp back-off
+    fi
+}
+
+run_offlineimap () {
+    if [ -t 1 ]; then
+        ui='-u blinkenlights'
+        ui='-u ttyui'
+    else
+        echo "================================================"
+        date
+        ui='-u Noninteractive.Basic'
+        ui='-u ttyui'
+    fi
+
+    #nice -n 10 offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
+    offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
+    status=$?
+    echo "offlineimap run exited with code $status"
+
+    # offlineimap's default interactive UI messes up the tty
+    #[ -t 1 ] && reset
+}
+
+run_mairix () {
+    echo "`date` starting mairix ..."
+    if nice -n 15 mairix-profile $MAIL_PROFILE; then
+        echo "`date` mairix completed OK"
+    else
+        echo "`date` mairix error!" >&2
+    fi
+}
+
+main () {
+    check_net_connection
+
+    run_offlineimap
+
+    if [ "$status" = 0 ]; then
+        run_mairix
+    else
+        # This won't happen if there's credential failure in
+        # offlineimap because it still exits 0.
+        echo "offlineimap run failed with exit code $status" >&2
+    fi
+
+    exit $status
+}
+
+main
