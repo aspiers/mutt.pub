@@ -70,6 +70,22 @@ run_offlineimap () {
     #[ -t 1 ] && reset
 }
 
+dedupe_inbox () {
+    if ! [ -d "$OFFLINEIMAP_INBOX" ]; then
+        echo "$OFFLINEIMAP_INBOX not a directory"
+        return 1
+    fi
+
+    if ! [ -d "$OFFLINEIMAP_INBOX/cur" ]; then
+        echo "$OFFLINEIMAP_INBOX not a maildir"
+        return 1
+    fi
+
+    echo
+    echo "maildir-deduplicate -d $OFFLINEIMAP_INBOX"
+    maildir-deduplicate -d "$OFFLINEIMAP_INBOX"
+}
+
 run_mairix () {
     echo "`date` starting mairix ..."
     if nice -n 15 mairix-profile $MAIL_PROFILE; then
@@ -83,6 +99,7 @@ main () {
     check_net_connection
 
     run_offlineimap
+    dedupe_inbox
 
     if [ "$status" = 0 ]; then
         run_mairix
