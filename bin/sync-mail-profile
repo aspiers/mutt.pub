@@ -84,6 +84,7 @@ dedupe_inbox () {
     echo
     echo "maildir-deduplicate -d $OFFLINEIMAP_INBOX"
     maildir-deduplicate -d "$OFFLINEIMAP_INBOX"
+    echo
 }
 
 run_mairix () {
