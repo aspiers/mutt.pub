@@ -70,21 +70,29 @@ run_offlineimap () {
     #[ -t 1 ] && reset
 }
 
-dedupe_inbox () {
-    if ! [ -d "$OFFLINEIMAP_INBOX" ]; then
-        echo "$OFFLINEIMAP_INBOX not a directory"
+dedupe_maildir () {
+    maildir="$1"
+
+    if ! [ -d "$maildir" ]; then
+        echo "$maildir not a directory"
         return 1
     fi
 
-    if ! [ -d "$OFFLINEIMAP_INBOX/cur" ]; then
-        echo "$OFFLINEIMAP_INBOX not a maildir"
+    if ! [ -d "$maildir/cur" ]; then
+        echo "$maildir not a maildir"
         return 1
     fi
 
     echo
-    echo "maildir-deduplicate -d $OFFLINEIMAP_INBOX"
-    maildir-deduplicate -d "$OFFLINEIMAP_INBOX"
+    echo "maildir-deduplicate -d $maildir"
+    maildir-deduplicate -d "$maildir"
     echo
+}
+
+dedupe_maildirs () {
+    for maildir in $OFFLINEIMAP_DEDUPE; do
+        dedupe_maildir "$maildir"
+    done
 }
 
 run_mairix () {
@@ -100,7 +108,7 @@ main () {
     check_net_connection
 
     run_offlineimap
-    dedupe_inbox
+    dedupe_maildirs
 
     if [ "$status" = 0 ]; then
         run_mairix
