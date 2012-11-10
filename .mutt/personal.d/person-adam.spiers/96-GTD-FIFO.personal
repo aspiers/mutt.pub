@@ -1,4 +1,4 @@
 # See 96-GTD-FIFO.  Currently I have two personal inboxes so this
 # deals with the second one.
 
-folder-hook '=offlineimap/INBOX' 'push "<limit>~(~m 1)<enter><display-message>"'
+folder-hook '=offlineimap/INBOX' 'push "<limit>~m 1 | ~(~m 1)<enter><display-message>"'
