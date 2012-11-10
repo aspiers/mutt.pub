@@ -1,6 +1,3 @@
-# only new mail via google goes into =archive/gm
-save-hook "~h mail.beimborn.com" =archive/`date +'%Y-%m'`
-
 save-hook . =archive/gm/`date +'%Y-%m'`
 fcc-hook . "=offlineimap/[Google Mail].Sent Mail"
 
