@@ -20,6 +20,8 @@ if [ -z "$OFFLINEIMAP_CONF" ]; then
     exit 3
 fi
 
+. ~/lib/libhost.sh
+
 DEBUG=
 #DEBUG="-l $OFFLINEIMAP_LOG"
 #DEBUGFLAGS=imap
@@ -55,7 +57,7 @@ run_offlineimap () {
         ui='-u blinkenlights'
         ui='-u ttyui'
     else
-        echo "================================================"
+        div =
         date
         ui='-u Noninteractive.Basic'
         ui='-u ttyui'
@@ -90,6 +92,36 @@ dedupe_maildir () {
 }
 
 dedupe_maildirs () {
+    # We have to ensure that only one host is ever responsible for
+    # deduplication at the same time, otherwise two hosts can (and do)
+    # hit a race condition where they choose opposite mails to nuke
+    # from a duplicate pair.  At the next offlineimap sync on both
+    # hosts, the result is that that mail gets deleted forever :-(
+    #
+    # We determine which host is responsible for deduplication by
+    # storing its nickname on a public webserver, which should ensure
+    # that any host performing syncing can check whether it should be
+    # deduplicating, even if it can't communicate directly with other
+    # hosts which might also want to do it.  This gives easy to
+    # control central switches.  (Read the README adjacent to the
+    # switches before throwing any of them.)
+
+    if ! dedupe_server=$( curl -s -S $OFFLINEIMAP_DEDUPE_SERVER_URL ); then
+        echo "Couldn't get deduplication server from $OFFLINEIMAP_DEDUPE_SERVER_URL\!" >&2
+        echo "Skipping deduplication since unsafe." >&2
+        return 1
+    fi
+
+    read_localhost_nickname
+
+    if [ "$localhost_nickname" != "$dedupe_server" ]; then
+        echo "Current host $localhost_nickname is not the deduplication server $dedupe_server"
+        echo "Skipping deduplication."
+        return 1
+    fi
+
+    echo "Current host $localhost_nickname is the deduplication server."
+
     for maildir in $OFFLINEIMAP_DEDUPE; do
         dedupe_maildir "$maildir"
     done
@@ -108,9 +140,13 @@ main () {
     check_net_connection
 
     run_offlineimap
+
+    div -
+
     dedupe_maildirs
 
     if [ "$status" = 0 ]; then
+        div -
         run_mairix
     else
         # This won't happen if there's credential failure in
