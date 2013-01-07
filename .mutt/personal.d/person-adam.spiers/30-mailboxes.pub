@@ -1,5 +1,10 @@
+# relies on 20-folder.pub defining '='
+
 #set spoolfile="=inboxes/MAIN"
 set spoolfile="=offlineimap/INBOX"
+set postponed="=offlineimap/[Google Mail].Drafts"
+
+# see also 30-archives.pub
 
 mailboxes !
 mailboxes =offlineimap/INBOX
