@@ -1,6 +1,15 @@
 #!/bin/sh
 
-. ~/lib/personal-mail.sh
+#. ~/lib/personal-mail.sh
 
-PYTHONPATH=$MAIL_PROFILE_DIR/.goobook \
-    ~/roaming/mail/goobook.svn/goobook.py "$@"
+goobook=$(
+    which -a goobook | grep -v "$0"
+)
+
+if ! [ -x "$goobook" ]; then
+    echo >&2 "Failed to locate goobook executable"
+    echo >&2 "Maybe you need to do sudo pip install goobook ?"
+    exit 1
+fi
+
+$goobook -c ~/mail/personal/.goobook/config "$@"
