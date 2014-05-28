@@ -86,8 +86,8 @@ dedupe_maildir () {
     fi
 
     echo
-    echo "maildir-deduplicate -d $maildir"
-    maildir-deduplicate -d "$maildir"
+    echo "maildir-deduplicate -S 768 -d $maildir"
+    maildir-deduplicate -S 768 -d "$maildir"
     echo
 }
 
