@@ -143,7 +143,7 @@ module OfflineIMAP
         differences.push "  uid #{uid} in maildir but not in localstatus - would upload?"
       end
     end
-    
+
     return differences
-  end    
+  end
 end
