@@ -1,6 +1,12 @@
 #!/bin/bash
 
-OFFLINEIMAP_TIMEOUT=600
+# We don't want to set a timeout on mairix because if it gets
+# terminated prematurely it leaves a stale lockfile and could even
+# corrupt the index.  We probably want a timeout on offlineimap
+# because it has been known to get stuck; however it should not be too
+# low since syncing large folders (e.g. openstack lists) or large
+# files can take a long time.
+: ${OFFLINEIMAP_TIMEOUT:=7200}
 
 me=`basename $0`
 
