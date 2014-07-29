@@ -8,6 +8,9 @@
 # files can take a long time.
 : ${OFFLINEIMAP_TIMEOUT:=7200}
 
+: ${DEDUPE_DIFF_THRESHOLD:=1024}
+: ${DEDUPE_SIZE_THRESHOLD:=1024}
+
 me=`basename $0`
 
 if [ $# != 1 ]; then
@@ -96,8 +99,13 @@ dedupe_maildir () {
     fi
 
     echo
-    echo "maildir-deduplicate -S 768 -d $maildir"
-    maildir-deduplicate -S 768 -d "$maildir"
+    opts=(
+        -D $DEDUPE_DIFF_THRESHOLD
+        -S $DEDUPE_SIZE_THRESHOLD
+        -d $maildir
+    )
+    echo "maildir-deduplicate ${opts[@]}"
+    maildir-deduplicate "${opts[@]}"
     echo
 }
 
