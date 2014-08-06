@@ -172,7 +172,7 @@ main () {
         echo "offlineimap run failed with exit code $status" >&2
     fi
 
-    exit $status
+    return $status
 }
 
 main
