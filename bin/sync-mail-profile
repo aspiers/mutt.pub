@@ -76,6 +76,7 @@ run_offlineimap () {
     fi
 
     #nice -n 10 offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
+    PYTHONPATH=$HOME/lib/python2.7/site-packages \
     atimeout $OFFLINEIMAP_TIMEOUT age-track \
         offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@" 2>&1
     status=$?
