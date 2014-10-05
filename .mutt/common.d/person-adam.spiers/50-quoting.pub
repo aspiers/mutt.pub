@@ -1,3 +1,4 @@
+# -*- mode: muttrc -*-
 
    macro index <f5> "<enter-command>source ~/.mutt/quoting/normal\n"   "select normal quoting"
    macro index <f6> "<enter-command>source ~/.mutt/quoting/jeopardy\n" "select jeopardy quoting"

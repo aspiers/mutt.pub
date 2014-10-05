@@ -1,3 +1,5 @@
+# -*- mode: muttrc -*-
+
 set alias_file=~/.STOW/mutt.sec/.mutt/common.d/person-adam.spiers/50-alias-incoming
 
 # Using reverse_name option for replies, but need a default

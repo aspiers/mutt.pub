@@ -1,3 +1,5 @@
+# -*- mode: muttrc -*-
+
 # These are managed by gmail filters
 mailboxes =offlineimap/`date +'%Y-%m' -d "$(date +%Y-%m-15) -2 months"`
 mailboxes =offlineimap/`date +'%Y-%m' -d "$(date +%Y-%m-15) -1 month"`

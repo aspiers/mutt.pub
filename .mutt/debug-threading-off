@@ -1,1 +1,3 @@
+# -*- mode: muttrc -*-
+
 ignore message-id x-mailer user-agent in-reply-to references

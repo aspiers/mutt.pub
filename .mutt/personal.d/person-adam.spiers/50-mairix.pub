@@ -1,2 +1,4 @@
+# -*- mode: muttrc -*-
+
 macro index,pager "\eD"  "<pipe-message>mairix-copy-message --ids --no-wait\n<shell-escape>switch-feed-emacs < ~/lib/xmacro/org-capture-personal-diary-mail\ns" "org-capture personal diary mail"
 macro index,pager "\eR"  "<pipe-message>mairix-copy-message --ids --no-wait\n<shell-escape>switch-feed-emacs < ~/lib/xmacro/org-capture-personal-TODO-mail\ns" "org-capture personal TODO mail"

@@ -1,3 +1,5 @@
+# -*- mode: muttrc -*-
+
 macro index,pager "\em"  "<pipe-message>mairix-copy-message --ids\n" "extract message id(s) into mairix clipboard"
 macro index,pager "\eB"  "<pipe-message>mairix-copy-message --threads\n" "extract thread subject(s) into mairix clipboard"
 macro index,pager "\eq"  "<pipe-message>mairix-copy-message --ids --no-wait\n<shell-escape>switch-feed-emacs < ~/lib/xmacro/org-capture\ns" "org-capture mail"

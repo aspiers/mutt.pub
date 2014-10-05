@@ -1,3 +1,5 @@
+# -*- mode: muttrc -*-
+
 # relies on 20-folder.pub defining '='
 
 #set spoolfile="=inboxes/MAIN"
