@@ -52,8 +52,8 @@ if [ -n "$view" ]; then
         #
         # Presumably this is due to some deficiency in the job control
         # capabilities of the shell launched by `shell-command'.
-        xterm -title "mairix search: $*" \
-              -e "unset COLUMNS;
+        urxvt -title "mairix search: $*" \
+              -e sh -c "unset COLUMNS;
                   mutt -F ~/.mutt/$MAIL_PROFILE \
                        -f $MAIRIX_RESULTS \
                        -e 'push <display-message>'
