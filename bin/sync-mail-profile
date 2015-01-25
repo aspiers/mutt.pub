@@ -77,7 +77,8 @@ run_offlineimap () {
 
     #nice -n 10 offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
     PYTHONPATH=$HOME/lib/python2.7/site-packages \
-    atimeout $OFFLINEIMAP_TIMEOUT age-track \
+    atimeout $OFFLINEIMAP_TIMEOUT \
+        age-track -n offlineimap-$MAIL_PROFILE \
         offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@" 2>&1
     status=$?
     echo "offlineimap run exited with code $status"
