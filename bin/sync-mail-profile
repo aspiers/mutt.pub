@@ -58,10 +58,12 @@ check_net_connection () {
     fi
 
     server=$OFFLINEIMAP_SERVER
-    if ! isup $server; then
-        echo "`date` $server not reachable, skipping mail sync"
-        exit 0 # consider success, don't exp back-off
-    fi
+    # some fuckwit ISPs block ICMP
+    #
+    # if ! isup $server; then
+    #     echo "`date` $server not reachable, skipping mail sync"
+    #     exit 0 # consider success, don't exp back-off
+    # fi
 }
 
 run_offlineimap () {
