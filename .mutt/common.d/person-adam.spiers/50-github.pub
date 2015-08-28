@@ -1,1 +1,1 @@
-message-hook "(~N|~O) ~f notifications@github.com" "push ':set pipe_decode=no\n<pipe-message>read-github-notification\n'"
+message-hook "(~N|~O) ~f notifications@github.com" "push '<view-attachments><search>text/html\n<pipe-entry>read-github-notification\n<exit>'"
