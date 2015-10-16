@@ -1,1 +1,1 @@
-message-hook "(~N|~O) ~f notifications@github.com" "push '<pipe-entry>read-github-notification\n'"
+message-hook "(~N|~O) ~f notifications@github.com" "push '<pipe-entry>read-github-notification --bg --quiet\n'"
