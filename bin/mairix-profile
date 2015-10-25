@@ -36,7 +36,7 @@ fi
 
 . "$profile_conf"
 
-mairix -f $MAIRIXRC "$@"
+ionice -c 3 mairix -f $MAIRIXRC "$@"
 mairix_exit=$?
 
 if [ -n "$view" ]; then
