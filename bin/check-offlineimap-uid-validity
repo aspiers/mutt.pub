@@ -1,19 +1,34 @@
 #!/bin/bash
 
-find_errors () {
+: ${REMOTE_HOST:=70ow.adamspiers.org}
+
+find_local_errors () {
     grep 'UID validity problem for' ~/mail/*/log/offlineimap/`fds -p` |
         sed 's/ *UID validity problem for folder \(.\+\) (repo [^)]\+) (saved \([0-9]\+\); got \([0-9]\+\)).*/\1 \2 \3/' |
         sort -u
 }
 
 declare -a folders
-declare -A old local_new remote_new
+declare -A local_current server remote
 
-while read folder old new; do
+while read folder old server; do
     folders+=($folder)
-    old[$folder]=$old
-    local_new[$folder]=$new
-    echo $folder $old $new
-done < <(find_errors)
+    local_current[$folder]=$old
+    server[$folder]=$server
+    echo $folder $local_current $server
+done < <(find_local_errors)
 
-ssh 70ow.adamspiers.org get-uid-validity ${folders[@]}
+while read folder current; do
+    remote[$folder]=$current
+done < <(ssh $REMOTE_HOST get-uid-validity ${folders[@]})
+
+for folder in "${folders[@]}"; do
+    loc=${local_current[$folder]}
+    srv=${server[$folder]}
+    rem=${remote[$folder]}
+    if [[ $srv == $rem ]]; then
+        echo "Safe to resync from $REMOTE_HOST"
+    else
+        echo "WARNING!  Server has UID validity $srv but $REMOTE_HOST has $rem (local $loc)" >&2
+    fi
+done
