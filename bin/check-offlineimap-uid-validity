@@ -1,0 +1,19 @@
+#!/bin/bash
+
+find_errors () {
+    grep 'UID validity problem for' ~/mail/*/log/offlineimap/`fds -p` |
+        sed 's/ *UID validity problem for folder \(.\+\) (repo [^)]\+) (saved \([0-9]\+\); got \([0-9]\+\)).*/\1 \2 \3/' |
+        sort -u
+}
+
+declare -a folders
+declare -A old local_new remote_new
+
+while read folder old new; do
+    folders+=($folder)
+    old[$folder]=$old
+    local_new[$folder]=$new
+    echo $folder $old $new
+done < <(find_errors)
+
+ssh 70ow.adamspiers.org get-uid-validity ${folders[@]}

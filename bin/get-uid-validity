@@ -1,0 +1,8 @@
+#!/bin/bash
+
+fv_dir=$HOME/mail/novell/.offlineimap/Repository-Novell-full/FolderValidity
+
+for folder in "$@"; do
+    echo -n "$folder "
+    cat $fv_dir/${folder//\//.}
+done
