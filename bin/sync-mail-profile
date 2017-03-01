@@ -162,19 +162,16 @@ main () {
     check_net_connection
 
     run_offlineimap
-
-    div -
-
-    dedupe_maildirs
-
-    if [ "$status" = 0 ]; then
-        div -
-        run_mairix
-    else
+    if [ "$status" != 0 ]; then
         # This won't happen if there's credential failure in
         # offlineimap because it still exits 0.
         echo "offlineimap run failed with exit code $status" >&2
     fi
+
+    div -
+    dedupe_maildirs
+    div -
+    run_mairix
 
     return $status
 }
