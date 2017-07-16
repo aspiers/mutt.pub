@@ -1,6 +1,7 @@
 #!/bin/bash
 
-LOCK=~/.lock/github-notifications
+LOCK_DIR=~/.lock
+LOCK=$LOCK_DIR/github-notifications
 me=`basename $0`
 
 . $ZDOTDIR/lib/libproc.sh
@@ -9,6 +10,7 @@ clean_up () {
   [ -L "$LOCK" ] && rm "$LOCK"
 }
 
+mkdir -p "$LOCK_DIR"
 obtain_lock "$LOCK" "$me" || exit 1
 # Signal must be trapped *after* obtaining lock, otherwise
 # failure to obtain the lock would remove an active lock.
