@@ -78,6 +78,11 @@ run_offlineimap () {
     fi
 
     #nice -n 10 offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
+    echo PYTHONPATH=$HOME/lib/python2.7/site-packages \
+    atimeout $OFFLINEIMAP_TIMEOUT \
+        age-track -n offlineimap-$MAIL_PROFILE \
+        offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
+
     PYTHONPATH=$HOME/lib/python2.7/site-packages \
     atimeout $OFFLINEIMAP_TIMEOUT \
         age-track -n offlineimap-$MAIL_PROFILE \
