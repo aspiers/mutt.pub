@@ -1,0 +1,35 @@
+# -*- mode: muttrc -*-
+
+# set imap_user = "myaccount@gmail.com"
+# set imap_pass = "mypassword"
+set imap_check_subscribed
+set hostname = gmail.com
+set mail_check = 120
+set timeout = 300
+set imap_keepalive = 300
+set imap_idle
+
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set postponed = "+[Google Mail]/Drafts"
+set record = "+[Google Mail]/Sent Mail"
+
+#bind editor <space> noop
+
+# Gmail-style keyboard shortcuts
+
+bind  index,pager E edit
+macro index,pager e "<enter-command>unset trash\n<delete-message>" "Gmail archive message"
+# save 'y' for collapse-thread
+
+# '#' was break thread
+macro index,pager '#' "<enter-command>set trash=\"+[Google Mail]/Bin\"\n<delete-message>" "Gmail delete message"
+macro index,pager ! "<enter-command>set trash=\"+[Google Mail]/Spam\"\n<delete-message>" "Gmail spam message"
+
+macro index,pager gl "<change-folder>="                               "Go to label"
+macro index,pager gi "<change-folder>=INBOX<enter>"                   "Go to inbox"
+macro index,pager ga "<change-folder>=[Google Mail]/All Mail<enter>"  "Go to all mail"
+macro index,pager gs "<change-folder>=[Google Mail]/Starred<enter>"   "Go to starred messages"
+macro index,pager gd "<change-folder>=[Google Mail]/Drafts<enter>"    "Go to drafts"
+macro index,pager gt "<change-folder>=[Google Mail]/Sent Mail<enter>" "Go to sent mail"
+
