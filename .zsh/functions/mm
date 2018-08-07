@@ -5,7 +5,7 @@ mm () {
   trap 'cxx' INT EXIT QUIT KILL
   cx mutt
   . ~/lib/personal-mail.sh
-  mutt -F ~/.mutt/$MAIL_PROFILE "$@"
+  neomutt -F ~/.mutt/$MAIL_PROFILE "$@"
 }
 
 compdef _mutt mm
