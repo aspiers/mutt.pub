@@ -10,11 +10,22 @@ export MAIRIX_DIR=$MAIL_PROFILE_DIR/.mairix
 export MAIRIXRC=$MAIRIX_DIR/config
 export MAIRIX_RESULTS=$MAIL_PROFILE_DIR/mairix
 
+export NOTMUCH_DIR=$MAIL_PROFILE_DIR/notmuch
+export NOTMUCH_CONFIG=$NOTMUCH_DIR/.notmuch-config
+export NOTMUCH_RESULTS=$NOTMUCH_DIR/results
+
 if which mairix >/dev/null 2>&1; then
     export MAIRIX_VERSION=$( mairix --version | awk '{print $2}' )
 else
     echo "Warning: mairix not installed" >&2
     export MAIRIX_VERSION=not-installed
+fi
+
+if which notmuch >/dev/null 2>&1; then
+    export NOTMUCH_VERSION=$( notmuch --version | awk '{print $2}' )
+else
+    echo "Warning: notmuch not installed" >&2
+    export NOTMUCH_VERSION=not-installed
 fi
 
 export OFFLINEIMAP_CONF=$MAIL_PROFILE_DIR/.offlineimaprc
