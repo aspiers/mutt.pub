@@ -41,8 +41,8 @@ DEBUGFLAGS=imap,maildir
 #DEBUGFLAGS=imap,maildir,thread
 
 # Uncomment this to enable debugging:
-# (OFFLINEIMAP_LOG_DEBUG defined in ~/lib/common-mail.sh)
-#DEBUG="-1 -d $DEBUGFLAGS -l $OFFLINEIMAP_LOG_DEBUG"
+# (OFFLINEIMAP_DEBUG_LOG defined in ~/lib/common-mail.sh)
+#DEBUG="-1 -d $DEBUGFLAGS -l $OFFLINEIMAP_DEBUG_LOG"
 
 me=`basename $0`
 
