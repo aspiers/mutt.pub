@@ -54,7 +54,7 @@ if [ -n "$view" ]; then
         # capabilities of the shell launched by `shell-command'.
         urxvt -title "mairix search: $*" \
               -e sh -c "unset COLUMNS;
-                  mutt -F ~/.mutt/$MAIL_PROFILE \
+                  neomutt -F ~/.mutt/$MAIL_PROFILE \
                        -f $MAIRIX_RESULTS \
                        -e 'push <display-message>'
                  "
