@@ -33,4 +33,3 @@ macro index,pager ga "<change-folder>=[Google Mail]/All Mail<enter>"  "Go to all
 macro index,pager gs "<change-folder>=[Google Mail]/Starred<enter>"   "Go to starred messages"
 macro index,pager gd "<change-folder>=[Google Mail]/Drafts<enter>"    "Go to drafts"
 macro index,pager gt "<change-folder>=[Google Mail]/Sent Mail<enter>" "Go to sent mail"
-
