@@ -11,6 +11,7 @@ set imap_idle
 
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "=INBOX"
+# For some reason, imap_{user,pass} need to be set before setting the following:
 set postponed = "=[Google Mail]/Drafts"
 set record = "=[Google Mail]/Sent Mail"
 fcc-hook . "=[Google Mail]/Sent Mail"
