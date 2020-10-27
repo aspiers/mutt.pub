@@ -10,7 +10,7 @@ set postponed="=offlineimap/[Google Mail].Drafts"
 
 mailboxes !
 mailboxes =offlineimap/INBOX
-mailboxes =offlineimap/involved
+mailboxes "=offlineimap/10 involved"
 mailboxes =offlineimap/todo
 
 #macro index,pager i  "<change-folder>=in/\t\tj"  "show main inboxes"
