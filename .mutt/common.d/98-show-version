@@ -1,4 +1,4 @@
 # -*- mode: muttrc -*-
 
 # Show the current version on startup
-push V
+exec show-version
