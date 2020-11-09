@@ -1,7 +1,5 @@
 # -*- mode: muttrc -*-
 
-# requires python-gdata to be installed
-
 set query_command = "goobook query '%s'"
 bind editor ^T complete-query
 # TAB bound to complete
