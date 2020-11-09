@@ -11,7 +11,7 @@
 ;oauth_db_filename: ~/.goobook_auth.json
 
 ;cache_filename: ~/.goobook_cache   # default is in the XDG_CACHE_HOME
-;cache_expiry_hours: 24
+cache_expiry_hours: 168
 ;filter_groupless_contacts: yes
 
 # New contacts will be added to this group in addition to "My Contacts"
