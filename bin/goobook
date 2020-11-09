@@ -1,6 +1,8 @@
 #!/bin/sh
 
-#. ~/lib/personal-mail.sh
+if [ -z "$MAIL_PROFILE_DIR" ]; then
+    . ~/lib/personal-mail.sh
+fi
 
 goobook=$(
     which -a goobook | grep -v "$0"
@@ -12,4 +14,4 @@ if ! [ -x "$goobook" ]; then
     exit 1
 fi
 
-$goobook -c ~/mail/personal/.goobook/config "$@"
+$goobook -c $MAIL_PROFILE_DIR/.goobook/config "$@"
