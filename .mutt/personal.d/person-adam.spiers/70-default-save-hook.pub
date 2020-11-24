@@ -1,5 +1,4 @@
 # -*- mode: muttrc -*-
 
-save-hook . =archive/gm/`date +'%Y-%m'`
-fcc-hook . "=offlineimap/[Google Mail].Sent Mail"
+fcc-save-hook . =offlineimap/`date +'%Y-%m'`
 
