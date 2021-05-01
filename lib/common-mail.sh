@@ -32,7 +32,11 @@ export OFFLINEIMAP_CONF=$MAIL_PROFILE_DIR/.offlineimaprc
 export OFFLINEIMAP_MAIL_DIR=$MAIL_PROFILE_DIR/offlineimap
 export OFFLINEIMAP_INBOX=$OFFLINEIMAP_MAIL_DIR/INBOX
 export OFFLINEIMAP_STATE_DIR=$MAIL_PROFILE_DIR/.offlineimap
-export OFFLINEIMAP_DEFAULT_ACCOUNT=$( grep '^accounts' $OFFLINEIMAP_CONF | awk '{print $3}' )
+
+if [ -e $OFFLINEIMAP_CONF ]; then
+    export OFFLINEIMAP_DEFAULT_ACCOUNT=$( grep '^accounts' $OFFLINEIMAP_CONF | awk '{print $3}' )
+fi
+
 export OFFLINEIMAP_LOG_DIR=$MAIL_PROFILE_LOG/offlineimap/`date +%Y/%m`
 export OFFLINEIMAP_LOG=$OFFLINEIMAP_LOG_DIR/`date +%d`
 export OFFLINEIMAP_DEBUG_LOG=${OFFLINEIMAP_LOG}-debug
