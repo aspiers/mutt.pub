@@ -4,4 +4,4 @@
 source "~/.mutt/run-hooks common personal|"
 
 # ... or static
-#source ~/.mutt/work.autogen
+#source ~/.mutt/personal.autogen
