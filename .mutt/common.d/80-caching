@@ -1,4 +1,4 @@
 # -*- mode: muttrc -*-
 
-set header_cache="~/.cache/mutt/$MAIL_PROFILE/headers"
-set message_cachedir="~/.cache/mutt/$MAIL_PROFILE/bodies"
+set header_cache="$MUTT_CACHE_DIR/headers"
+set message_cachedir="$MUTT_CACHE_DIR/bodies"
