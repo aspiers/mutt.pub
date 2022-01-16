@@ -14,6 +14,7 @@ set spoolfile = "=INBOX"
 # For some reason, imap_{user,pass} need to be set before setting the following:
 set postponed = "=[Google Mail]/Drafts"
 set record = "=[Google Mail]/Sent Mail"
+unhook fcc-hook
 fcc-hook . "=[Google Mail]/Sent Mail"
 
 #bind editor <space> noop
