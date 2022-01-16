@@ -23,6 +23,7 @@ macro compose = "\Cx_\n"
 # Don't forget to put the number of the account at the beginning
 # of the line, and the number of the next account after the '&'
 macro compose \Cx0 "\Cx| -a adamspiers.org\"\n\Cx&1\n\Cx_\n" # use default and bind to switch-to-1
-macro compose \Cx1 "\Cx| -a google\"\n\Cx&0\n\Cx_\n"         # use ssh tunnel and bind to switch-to-0
+macro compose \Cx1 "\Cx| -a oceanwharf2000.com\"\n\Cx&2\n\Cx_\n"
+macro compose \Cx2 "\Cx| -a google\"\n\Cx&0\n\Cx_\n"
 # End of the accounts
 
