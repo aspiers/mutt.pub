@@ -1,6 +1,6 @@
 #autoload
 
-mm () {
+m () {
   setopt local_traps
   trap 'cxx' INT EXIT QUIT KILL
   cx mutt
@@ -8,7 +8,7 @@ mm () {
   neomutt -F ~/.mutt/$MAIL_PROFILE "$@"
 }
 
-compdef _mutt mm
+compdef _mutt m
 
-mm "$@"
+m "$@"
 

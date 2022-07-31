@@ -1,0 +1,5 @@
+#compdef m
+
+words[1]=mutt
+_mutt "$@"
+
