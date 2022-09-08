@@ -1,0 +1,31 @@
+# Example NeoMutt config file for the notmuch feature.
+# https://neomutt.org/feature/notmuch#8-%C2%A0neomuttrc
+
+set nm_db_limit = 0
+set nm_default_url = ""
+set nm_exclude_tags = ""
+set nm_open_timeout = 5
+set nm_query_type = messages  # or "threads"
+set nm_record = no
+# set nm_record = yes
+# set nm_record_tags = "-inbox,archive,me"
+set nm_record_tags = ""
+set nm_unread_tag = unread
+set vfolder_format = "%6n(%6N) %f"
+set virtual_spoolfile = no
+
+# setup time window preferences
+# first setup the duration, and then the time unit of that duration
+# when set to 0 (the default) the search window feature is disabled
+# unless explicitly enabled with nm_query_window_enable.
+set nm_query_window_duration=0
+set nm_query_window_timebase="week" # or "hour", "day", "week", "month", "year"
+
+bind index,pager gv change-vfolder
+bind index,pager g+ entire-thread
+bind index,pager gq vfolder-from-query
+bind index \e< vfolder-window-backward
+bind index \e> vfolder-window-forward
+bind index,pager \ei sidebar-toggle-virtual
+macro index,pager + 'push "<modify-labels>+"'
+macro index,pager - 'push "<modify-labels>-"'
