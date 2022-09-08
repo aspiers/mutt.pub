@@ -10,7 +10,7 @@ goobook=$(
 
 if ! [ -x "$goobook" ]; then
     echo >&2 "Failed to locate goobook executable"
-    echo >&2 "Maybe you need to do sudo pip install goobook ?"
+    echo >&2 "Maybe you need to do pip install goobook ?"
     exit 1
 fi
 
