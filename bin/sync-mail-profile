@@ -13,18 +13,19 @@
 
 me=`basename $0`
 
-if [ $# != 1 ]; then
-    echo "Usage: $me PROFILE-FILE" >&2
-    exit 1
-fi
+# if [ $# != 1 ]; then
+#     echo "Usage: $me PROFILE-FILE" >&2
+#     exit 1
+# fi
 
 profile="$1"
+shift
 if ! [ -e "$profile" ]; then
     echo "$profile does not exist; aborting." >&2
     exit 2
 fi
 
-. "$1"
+. "$profile"
 
 if [ -z "$OFFLINEIMAP_CONF" ]; then
     echo "Error loading $profile; aborting." >&2
@@ -166,7 +167,7 @@ run_mairix () {
 main () {
     check_net_connection
 
-    run_offlineimap
+    run_offlineimap "$@"
     if [ "$status" != 0 ]; then
         # This won't happen if there's credential failure in
         # offlineimap because it still exits 0.
@@ -181,4 +182,4 @@ main () {
     return $status
 }
 
-main
+main "$@"
