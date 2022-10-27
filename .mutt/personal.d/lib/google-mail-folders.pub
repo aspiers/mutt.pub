@@ -1,0 +1,18 @@
+# See also gmail-folders.pub
+
+# For some reason, imap_{user,pass} need to be set before setting the following:
+set postponed = "=[Google Mail]/Drafts"
+set record = "=[Google Mail]/Sent Mail"
+unhook fcc-hook
+fcc-hook . "=[Google Mail]/Sent Mail"
+
+# Gmail-style keyboard shortcuts
+
+# '#' was break thread
+macro index,pager '#' "<enter-command>set trash=\"+[Google Mail]/Bin\"\n<delete-message>" "Gmail delete message"
+macro index,pager ! "<enter-command>set trash=\"+[Google Mail]/Spam\"\n<delete-message>" "Gmail spam message"
+
+macro index,pager ga "<change-folder>=[Google Mail]/All<quote-char> Mail<enter>"  "Go to all mail"
+macro index,pager gs "<change-folder>=[Google Mail]/Starred<enter>"   "Go to starred messages"
+macro index,pager gd "<change-folder>=[Google Mail]/Drafts<enter>"    "Go to drafts"
+macro index,pager gt "<change-folder>=[Google Mail]/Sent<quote-char> Mail<enter>" "Go to sent mail"
