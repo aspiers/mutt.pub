@@ -134,7 +134,7 @@ dedupe_maildirs () {
     # control central switches.  (Read the README adjacent to the
     # switches before throwing any of them.)
 
-    if ! dedupe_server=$( curl -s -S $OFFLINEIMAP_DEDUPE_SERVER_URL ); then
+    if ! dedupe_server=$( curl -fsS $OFFLINEIMAP_DEDUPE_SERVER_URL ); then
         echo "Couldn't get deduplication server from $OFFLINEIMAP_DEDUPE_SERVER_URL\!" >&2
         echo "Skipping deduplication since unsafe." >&2
         return 1
