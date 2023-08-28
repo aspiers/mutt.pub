@@ -10,6 +10,7 @@ set postponed="=offlineimap/[Google Mail].Drafts"
 
 mailboxes !
 mailboxes =offlineimap/INBOX
+mailboxes "=offlineimap/03 sw-TODOs"
 mailboxes "=offlineimap/10 involved"
 mailboxes =offlineimap/todo
 
