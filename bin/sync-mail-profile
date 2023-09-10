@@ -172,6 +172,7 @@ main () {
         # This won't happen if there's credential failure in
         # offlineimap because it still exits 0.
         echo "offlineimap run failed with exit code $status" >&2
+        return "$status"
     fi
 
     div -
