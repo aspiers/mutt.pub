@@ -10,15 +10,21 @@ set postponed="=offlineimap/[Google Mail].Drafts"
 
 mailboxes !
 mailboxes =offlineimap/INBOX
+mailboxes "=offlineimap/03 sw-TODOs"
 mailboxes "=offlineimap/10 involved"
 mailboxes =offlineimap/todo
 
+# Old approach
 #macro index,pager i  "<change-folder>=in/\t\tj"  "show main inboxes"
 
+# For some reason, if "<change-folder>?" is followed by pressing "q"
+# to quit, it returns the user to the pager not the index.  This is
+# desirable if the user was previously in the pager, but not if the
+# user was previously in the index.  So, define two different macros
+# to ensure that "q" will return the user to the mode they were
+# previously in:
 macro index i  "<change-folder><kill-line>\t\tj"  "show main inboxes"
-# For some reason, "<change-folder>?" ensures that the user will return
-# to the pager on quit, not the index.
-macro pager i  "<change-folder>?<toggle-mailboxes>j"  "show main inboxes"
+macro pager i  "<change-folder>?"                 "show main inboxes"
 
 # last matching rule wins
 
