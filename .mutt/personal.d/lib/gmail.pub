@@ -19,4 +19,6 @@ macro index,pager e "<enter-command>unset trash\n<delete-message>" "Gmail archiv
 macro index,pager gl "<change-folder>="                               "Go to label"
 macro index,pager gi "<change-folder>=INBOX<enter>"                   "Go to inbox"
 
+source ~/.mutt/personal.d/lib/google-mail-folders.pub
+
 #bind editor <space> noop
