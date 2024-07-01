@@ -1,0 +1,41 @@
+# $my_gmail_root_folder must be set before source-ing this.
+
+set imap_check_subscribed
+set hostname = gmail.com
+set mail_check = 120
+set timeout = 300
+set imap_keepalive = 300
+set imap_idle
+
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "=INBOX"
+
+# For some reason, imap_{user,pass} need to be set before setting the following:
+set postponed = "=$my_gmail_root_folder/Drafts"
+set record = "=$my_gmail_root_folder/Sent Mail"
+
+# FIXME: Why does this only work by unhooking fcc-save-hook?  Why
+# can't we just unhook fcc-hook?  The docs say that fcc-save-hook is
+# exactly equivalent to doing both fcc-hook and save-hook...
+unhook fcc-save-hook fcc-hook save-hook
+fcc-save-hook . "=`date +'%Y-%m'`"
+
+################################################################################
+# Gmail-style keyboard shortcuts
+
+bind  index,pager E edit
+macro index,pager e "<enter-command>unset trash\n<delete-message>" "Gmail archive message"
+# save 'y' for collapse-thread
+
+macro index,pager gl "<change-folder>="                               "Go to label"
+macro index,pager gi "<change-folder>=INBOX<enter>"                   "Go to inbox"
+
+macro index,pager ga "<change-folder>=$my_gmail_root_folder/All<quote-char> Mail<enter>"  "Go to all mail"
+macro index,pager gs "<change-folder>=$my_gmail_root_folder/Starred<enter>"               "Go to starred messages"
+macro index,pager gd "<change-folder>=$my_gmail_root_folder/Drafts<enter>"                "Go to drafts"
+macro index,pager gt "<change-folder>=$my_gmail_root_folder/Sent<quote-char> Mail<enter>" "Go to sent mail"
+
+# '#' was break thread
+macro index,pager '#' "<enter-command>set trash=\"+$my_gmail_root_folder/Bin\"\n<delete-message>" "Gmail delete message"
+macro index,pager ! "<enter-command>set trash=\"+$my_gmail_root_folder/Spam\"\n<delete-message>" "Gmail spam message"
+
