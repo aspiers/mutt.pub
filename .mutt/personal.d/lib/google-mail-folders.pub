@@ -5,8 +5,8 @@ set record = "=[Google Mail]/Sent Mail"
 # FIXME: Why does this only work by unhooking fcc-save-hook?  Why
 # can't we just unhook fcc-hook?  The docs say that fcc-save-hook is
 # exactly equivalent to doing both fcc-hook and save-hook...
-unhook fcc-save-hook
-fcc-hook . "=[Google Mail]/Sent Mail"
+unhook fcc-save-hook fcc-hook save-hook
+fcc-save-hook . "=`date +'%Y-%m'`"
 
 # Gmail-style keyboard shortcuts
 
