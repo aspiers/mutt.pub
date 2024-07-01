@@ -1,7 +1,11 @@
 # For some reason, imap_{user,pass} need to be set before setting the following:
 set postponed = "=[Google Mail]/Drafts"
 set record = "=[Google Mail]/Sent Mail"
-unhook fcc-hook
+
+# FIXME: Why does this only work by unhooking fcc-save-hook?  Why
+# can't we just unhook fcc-hook?  The docs say that fcc-save-hook is
+# exactly equivalent to doing both fcc-hook and save-hook...
+unhook fcc-save-hook
 fcc-hook . "=[Google Mail]/Sent Mail"
 
 # Gmail-style keyboard shortcuts
