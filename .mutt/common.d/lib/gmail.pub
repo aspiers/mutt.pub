@@ -8,7 +8,7 @@ set imap_keepalive = 300
 set imap_idle
 
 set folder = "imaps://imap.gmail.com:993"
-set spoolfile = "=INBOX"
+set spool_file = "=INBOX"
 
 # For some reason, imap_{user,pass} need to be set before setting the following:
 set postponed = "=$my_gmail_root_folder/Drafts"
