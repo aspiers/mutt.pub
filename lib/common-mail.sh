@@ -10,6 +10,7 @@ export MAIRIX_DIR=$MAIL_PROFILE_DIR/.mairix
 export MAIRIXRC=$MAIRIX_DIR/config
 export MAIRIX_RESULTS=$MAIL_PROFILE_DIR/mairix
 
+export LD_LIBRARY_PATH=~/.local/lib64:~/.local/lib
 export NOTMUCH_DIR=$MAIL_PROFILE_DIR/notmuch
 # N.B. config file has to be outside directory, at least for bootstrapping
 export NOTMUCH_CONFIG=$MAIL_PROFILE_DIR/.notmuch-config
