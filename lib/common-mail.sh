@@ -18,15 +18,16 @@ export NOTMUCH_RESULTS=$NOTMUCH_DIR/results
 if which mairix >/dev/null 2>&1; then
     export MAIRIX_VERSION=$( mairix --version | awk '{print $2}' )
 else
-    echo "Warning: mairix not installed" >&2
-    export MAIRIX_VERSION=not-installed
+    echo "Warning: mairix not found on \$PATH" >&2
+    export MAIRIX_VERSION=not-found
 fi
 
 if which notmuch >/dev/null 2>&1; then
     export NOTMUCH_VERSION=$( notmuch --version | awk '{print $2}' )
 else
-    echo "Warning: notmuch not installed" >&2
-    export NOTMUCH_VERSION=not-installed
+    echo "Warning: notmuch not found on \$PATH" >&2
+    export NOTMUCH_VERSION=not-found
+fi
 fi
 
 export OFFLINEIMAP_CONF=$MAIL_PROFILE_DIR/.offlineimaprc
