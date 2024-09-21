@@ -1,4 +1,14 @@
-# -*- mode: muttrc -*-
+# relies on 20-folder.pub defining '='
+
+#set spool_file="=inboxes/MAIN"
+set spool_file="=offlineimap/INBOX"
+set postponed="=offlineimap/[Google Mail].Drafts"
+
+mailboxes !
+mailboxes =offlineimap/INBOX
+mailboxes "=offlineimap/03 sw-TODOs"
+mailboxes "=offlineimap/10 involved"
+mailboxes =offlineimap/todo
 
 # These are managed by gmail filters
 mailboxes =offlineimap/`date +'%Y-%m' -d "$(date +%Y-%m-15) -2 months"`

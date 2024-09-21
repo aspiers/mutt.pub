@@ -1,4 +1,4 @@
 # N.B. This has to come before any use of the '=' folder shortcut
 # since '=' gets expanded at set-time not use-time :-(
-set folder="~/mail/personal"
+set folder="~/mail/personal/.DO-NOT-USE"
 

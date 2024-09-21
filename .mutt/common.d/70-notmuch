@@ -37,6 +37,8 @@ set vfolder_format = "%6n(%6N) %f"
 # Would use first vfolder as main inbox, but now obsolete because
 # spool_file can be set to the description of a vfolder or named
 # mailbox.
+virtual-mailboxes "inbox" "notmuch://?query=tag:inbox"
+set spool_file="inbox"
 set virtual_spoolfile = no
 
 # setup time window preferences
