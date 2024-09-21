@@ -1,4 +1,2 @@
-# -*- mode: muttrc -*-
-
 set header_cache="$MUTT_CACHE_DIR/headers"
 set message_cachedir="$MUTT_CACHE_DIR/bodies"

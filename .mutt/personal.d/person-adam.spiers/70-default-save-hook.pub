@@ -1,4 +1,2 @@
-# -*- mode: muttrc -*-
-
 fcc-save-hook . =offlineimap/`date +'%Y-%m'`
 

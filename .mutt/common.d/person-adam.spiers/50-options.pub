@@ -1,5 +1,3 @@
-# -*- mode: muttrc -*-
-
 set certificate_file=~/.mutt/certificates
 
 # default to $VISUAL or $EDITOR or vi

@@ -1,4 +1,2 @@
-# -*- mode: muttrc -*-
-
 macro index Z "<shell-escape>nmzmail<return><esc>c~/.nmzmail/result<return>" "Search via nmzmail"
 macro pager Z "<shell-escape>nmzmail<return><esc>c~/.nmzmail/result<return>" "Search via nmzmail"

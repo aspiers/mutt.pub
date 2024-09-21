@@ -1,5 +1,3 @@
-# -*- mode: muttrc -*-
-
 # dynamic ...
 source "~/.mutt/run-hooks common personal|"
 

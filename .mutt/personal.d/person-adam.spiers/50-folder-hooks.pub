@@ -1,5 +1,3 @@
-# -*- mode: muttrc -*-
-
 folder-hook =in/MAIN$                    source ~/.mutt/folders/MAIN
 folder-hook =in/junk-mail                source ~/.mutt/folders/junk-mail
 folder-hook =in/bad-junk-mail            'push "<tag-pattern>all\n;\ej"'

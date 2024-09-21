@@ -1,7 +1,3 @@
-# -*- mode: muttrc -*-
-
-# -*- mode: sh -*-
-
 # See also ~/.mutt/work.d/person-adam.spiers/50-novell+smtp.pub
 
 #set sendmail="/usr/bin/ssh -o ClearAllForwardings=yes f5.mandolinarchive.com sendmail -oem -oi -f f5-sendmail@adamspiers.org"
