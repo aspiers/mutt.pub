@@ -1,0 +1,45 @@
+#!/bin/bash
+
+me=`basename $0`
+
+if [ $# != 1 ]; then
+    echo "Usage: $me PROFILE-FILE" >&2
+    exit 1
+fi
+
+profile="$1"
+shift
+if ! [ -e "$profile" ]; then
+    echo "$profile does not exist; aborting." >&2
+    exit 2
+fi
+
+. "$profile"
+
+if [ -z "$LIEER_CONFIG" ]; then
+    echo "Error loading $profile; aborting." >&2
+    exit 3
+fi
+
+. ~/lib/libhost.sh
+
+if ! [ -t 1 ]; then
+  exec >> "$LIEER_LOG" 2>&1
+fi
+
+check_net_connection () {
+    # N.B. some fuckwit ISPs block ICMP, so this might be problematic
+    if ! isup gmail.com; then
+        echo "`date` gmail.com not reachable, skipping mail sync"
+        exit 0 # consider success, don't exp back-off
+    fi
+}
+
+main () {
+    check_net_connection
+
+    cd $NOTMUCH_DIR
+    gmi sync
+}
+
+main "$@"

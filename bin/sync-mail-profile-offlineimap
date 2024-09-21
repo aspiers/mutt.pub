@@ -1,0 +1,186 @@
+#!/bin/bash
+
+# We don't want to set a timeout on mairix because if it gets
+# terminated prematurely it leaves a stale lockfile and could even
+# corrupt the index.  We probably want a timeout on offlineimap
+# because it has been known to get stuck; however it should not be too
+# low since syncing large folders (e.g. openstack lists) or large
+# files can take a long time.
+: ${OFFLINEIMAP_TIMEOUT:=7200}
+
+: ${DEDUPE_DIFF_THRESHOLD:=1024}
+: ${DEDUPE_SIZE_THRESHOLD:=1024}
+
+me=`basename $0`
+
+# if [ $# != 1 ]; then
+#     echo "Usage: $me PROFILE-FILE" >&2
+#     exit 1
+# fi
+
+profile="$1"
+shift
+if ! [ -e "$profile" ]; then
+    echo "$profile does not exist; aborting." >&2
+    exit 2
+fi
+
+. "$profile"
+
+if [ -z "$OFFLINEIMAP_CONF" ]; then
+    echo "Error loading $profile; aborting." >&2
+    exit 3
+fi
+
+. ~/lib/libhost.sh
+
+DEBUG=
+#DEBUG="-l $OFFLINEIMAP_LOG"
+#DEBUGFLAGS=imap
+#DEBUGFLAGS=maildir
+DEBUGFLAGS=imap,maildir
+#DEBUGFLAGS=imap,maildir,thread
+
+# Uncomment this to enable debugging:
+# (OFFLINEIMAP_DEBUG_LOG defined in ~/lib/common-mail.sh)
+#DEBUG="-1 -d $DEBUGFLAGS -l $OFFLINEIMAP_DEBUG_LOG"
+
+me=`basename $0`
+
+if ! [ -t 1 ]; then
+  exec >> "$OFFLINEIMAP_LOG" 2>&1
+fi
+
+check_net_connection () {
+    # Don't choke GPRS connection unless explicitly requested run interactively
+    if [ "`gw-dev`" == ppp0 ] && ! [ -t 1 ]; then
+        echo "`date` gateway interface is ppp0, automatic mail sync disabled"
+        exit 0 # consider success, don't exp back-off
+    fi
+
+    server=$OFFLINEIMAP_SERVER
+    # some fuckwit ISPs block ICMP
+    #
+    # if ! isup $server; then
+    #     echo "`date` $server not reachable, skipping mail sync"
+    #     exit 0 # consider success, don't exp back-off
+    # fi
+}
+
+run_offlineimap () {
+    if [ -t 1 ]; then
+        ui='-u blinkenlights'
+        ui='-u ttyui'
+    else
+        div =
+        date
+        ui='-u Noninteractive.Basic'
+        ui='-u ttyui'
+    fi
+
+    #nice -n 10 offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
+    echo PYTHONPATH=$HOME/lib/python2.7/site-packages \
+    atimeout $OFFLINEIMAP_TIMEOUT \
+        age-track -n offlineimap-$MAIL_PROFILE \
+        offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@"
+
+    PYTHONPATH=$HOME/lib/python2.7/site-packages \
+    atimeout $OFFLINEIMAP_TIMEOUT \
+        age-track -n offlineimap-$MAIL_PROFILE \
+        offlineimap -c $OFFLINEIMAP_CONF $DEBUG $ui "$@" 2>&1
+    status=$?
+    echo "offlineimap run exited with code $status"
+
+    # offlineimap's default interactive UI messes up the tty
+    #[ -t 1 ] && reset
+}
+
+dedupe_maildir () {
+    maildir="$1"
+
+    if ! [ -d "$maildir" ]; then
+        echo "$maildir not a directory"
+        return 1
+    fi
+
+    if ! [ -d "$maildir/cur" ]; then
+        echo "$maildir not a maildir"
+        return 1
+    fi
+
+    echo
+    opts=(
+        -D $DEDUPE_DIFF_THRESHOLD
+        -S $DEDUPE_SIZE_THRESHOLD
+        -d $maildir
+    )
+    echo "maildir-deduplicate ${opts[@]}"
+    maildir-deduplicate "${opts[@]}"
+    echo
+}
+
+dedupe_maildirs () {
+    # We have to ensure that only one host is ever responsible for
+    # deduplication at the same time, otherwise two hosts can (and do)
+    # hit a race condition where they choose opposite mails to nuke
+    # from a duplicate pair.  At the next offlineimap sync on both
+    # hosts, the result is that that mail gets deleted forever :-(
+    #
+    # We determine which host is responsible for deduplication by
+    # storing its nickname on a public webserver, which should ensure
+    # that any host performing syncing can check whether it should be
+    # deduplicating, even if it can't communicate directly with other
+    # hosts which might also want to do it.  This gives easy to
+    # control central switches.  (Read the README adjacent to the
+    # switches before throwing any of them.)
+
+    if ! dedupe_server=$( curl -fsS $OFFLINEIMAP_DEDUPE_SERVER_URL ); then
+        echo "Couldn't get deduplication server from $OFFLINEIMAP_DEDUPE_SERVER_URL\!" >&2
+        echo "Skipping deduplication since unsafe." >&2
+        return 1
+    fi
+
+    read_localhost_nickname
+
+    if [ "$localhost_nickname" != "$dedupe_server" ]; then
+        echo "Current host $localhost_nickname is not the deduplication server $dedupe_server"
+        echo "Skipping deduplication."
+        return 1
+    fi
+
+    echo "Current host $localhost_nickname is the deduplication server."
+
+    for maildir in $OFFLINEIMAP_DEDUPE; do
+        dedupe_maildir "$maildir"
+    done
+}
+
+run_mairix () {
+    echo "`date` starting mairix ..."
+    if nice -n 15 mairix-profile $MAIL_PROFILE; then
+        echo "`date` mairix completed OK"
+    else
+        echo "`date` mairix error!" >&2
+    fi
+}
+
+main () {
+    check_net_connection
+
+    run_offlineimap "$@"
+    if [ "$status" != 0 ]; then
+        # This won't happen if there's credential failure in
+        # offlineimap because it still exits 0.
+        echo "offlineimap run failed with exit code $status" >&2
+        return "$status"
+    fi
+
+    div -
+    dedupe_maildirs
+    div -
+    run_mairix
+
+    return $status
+}
+
+main "$@"

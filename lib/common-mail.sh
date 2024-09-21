@@ -15,6 +15,10 @@ export NOTMUCH_DIR=$MAIL_PROFILE_DIR/notmuch
 export NOTMUCH_CONFIG=$MAIL_PROFILE_DIR/.notmuch-config
 export NOTMUCH_RESULTS=$NOTMUCH_DIR/results
 
+export LIEER_CONFIG=$NOTMUCH_DIR/.gmailieer.json
+export LIEER_LOG_DIR=$MAIL_PROFILE_LOG/lieer/`date +%Y/%m`
+[ -d "$LIEER_LOG_DIR" ] || mkdir -p "$LIEER_LOG_DIR"
+
 if which mairix >/dev/null 2>&1; then
     export MAIRIX_VERSION=$( mairix --version | awk '{print $2}' )
 else
@@ -28,6 +32,9 @@ else
     echo "Warning: notmuch not found on \$PATH" >&2
     export NOTMUCH_VERSION=not-found
 fi
+
+if ! which gmi >/dev/null 2>&1; then
+    echo "Warning: lieer not found on \$PATH" >&2
 fi
 
 export OFFLINEIMAP_CONF=$MAIL_PROFILE_DIR/.offlineimaprc
