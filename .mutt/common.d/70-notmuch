@@ -48,16 +48,16 @@ set virtual_spoolfile = no
 #set nm_query_window_enable=yes
 #set nm_query_window_duration=2
 set nm_query_window_timebase="week" # or "hour", "day", "week", "month", "year"
+bind index \e< vfolder-window-backward
+bind index \e> vfolder-window-forward
 
 # Extend query window to always show mail matching these terms.
 #set nm_query_window_or_terms="tag:unread and tag:flagged"
 
 bind index,pager gv change-vfolder
-bind index,pager g+ entire-thread
+bind index,pager gt entire-thread
 bind index,pager A entire-thread
 bind index,pager gq vfolder-from-query
-bind index \e< vfolder-window-backward
-bind index \e> vfolder-window-forward
 bind index,pager \ei sidebar-toggle-virtual
-macro index,pager + 'push "<modify-labels>+"'
-macro index,pager - 'push "<modify-labels>-"'
+macro index,pager g+ '<modify-labels>+'
+macro index,pager g- '<modify-labels>-'
