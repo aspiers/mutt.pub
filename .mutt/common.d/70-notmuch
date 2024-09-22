@@ -58,6 +58,8 @@ bind index,pager gv change-vfolder
 bind index,pager gt entire-thread
 bind index,pager A entire-thread
 bind index,pager gq vfolder-from-query
+# old keybinding
+# macro index,pager S vfolder-from-query
 bind index,pager \ei sidebar-toggle-virtual
 macro index,pager g+ '<modify-labels>+'
 macro index,pager g- '<modify-labels>-'
