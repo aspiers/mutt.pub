@@ -2,7 +2,7 @@
 set sidebar_visible = no
 
 # How wide should the Sidebar be in screen columns?
-set sidebar_width = 20
+#set sidebar_width = 20
 
 # Should the mailbox paths be abbreviated?
 set sidebar_short_path = yes
@@ -17,7 +17,10 @@ set sidebar_component_depth = 2
 # When abbreviating mailbox path names, use any of these characters as path
 # separators. Only the part after the last separators will be shown.
 # For file folders '/' is good. For IMAP folders, often '.' is useful.
-set sidebar_delim_chars = '/.'
+# However, including '.' will incorrectly indent vfolders for notmuch
+# queries containing '.' due to a bug:
+# https://github.com/neomutt/neomutt/issues/3111
+set sidebar_delim_chars = '/'
 
 # Make the Sidebar only display mailboxes that contain new, or flagged,
 # mail.
@@ -83,7 +86,7 @@ color sidebar_spool_file color207 default
 # Color to give mailboxes containing no unread mail
 color sidebar_unread color136 default
 
-bind  index,pager [         sidebar-toggle-visible
+bind  index,pager ,         sidebar-toggle-visible
 bind  index,pager "\e[1;5D" sidebar-toggle-visible
 bind  index,pager "\e[1;5A" sidebar-prev
 bind  index,pager "\e[1;5B" sidebar-next
