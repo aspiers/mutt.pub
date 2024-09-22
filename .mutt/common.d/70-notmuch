@@ -64,4 +64,5 @@ bind index,pager \ei sidebar-toggle-virtual
 macro index,pager g+ '<modify-labels>+'
 macro index,pager g- '<modify-labels>-'
 
-folder-hook "nm:" "source ~/.mutt/folders/notmuch-vfolder.pub"
+folder-hook (^nm:) "source ~/.mutt/folders/notmuch-vfolder.pub"
+source ~/.mutt/folders/notmuch-vfolder.pub
