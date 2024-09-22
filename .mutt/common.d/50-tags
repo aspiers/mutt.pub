@@ -1,0 +1,62 @@
+# From https://neomutt.org/feature/custom-tags#7-%C2%A0neomuttrc
+
+# VARIABLES – shown with their default values
+# --------------------------------------------------------------------------
+# This variable specifies private notmuch tags which should not be printed
+# on screen (index, pager).
+#set hidden_tags = "unread,draft,flagged,passed,replied,attachment,signed,encrypted"
+set hidden_tags = "unread,draft,inbox,personal,promotions,updates"
+
+# --------------------------------------------------------------------------
+# FUNCTIONS – shown with an example mapping
+# --------------------------------------------------------------------------
+# modify (notmuch/imap) tags
+bind index,pager \` modify-labels
+
+# modify (notmuch/imap) tag non-interactively.
+#macro index,pager tt "<modify-labels>!todo\n" "Toggle the 'todo' tag"
+
+# modify labels and then hide message
+# bind index,pager ??? modify-labels-then-hide
+
+# --------------------------------------------------------------------------
+# COMMANDS – shown with an example
+# --------------------------------------------------------------------------
+# Replace some tags with icons
+# tag-transforms tag transformed-string { tag transformed-string ...}
+tag-transforms "inbox"      "i"   \
+               "attachment" "📎"  \
+               "important"  "⚠️"   \
+               "unread"     "u"   \
+               "replied"    "↻ "  \
+               "sent"       "➥ "  \
+               "todo"       "T"   \
+               "deleted"    "DEL" \
+               "invites"    "CAL"
+
+# The formats must start with 'G' and the entire sequence is case sensitive.
+# tag-formats tag format-string { tag format-string ...}
+tag-formats "inbox"       "GI" \
+            "attachment"  "GA" \
+            "unread"      "GU" \
+            "replied"     "GR" \
+            "sent"        "GS" \
+            "todo"        "Gt" \
+            "deleted"     "GD" \
+            "invites"     "Gi"
+
+# Now instead of using '%g' or '%J' in your $index_format, which lists all tags
+# in a non-deterministic order, you can something like the following which puts
+# a transformed tag name in a specific spot on the index line:
+
+# The %G formatting sequence may display all tags including tags hidden by
+# hidden_tags.
+#
+# --------------------------------------------------------------------------
+# COLORS – some unpleasant examples are given
+# --------------------------------------------------------------------------
+# These symbols are added to the index-color feature:
+# an individual message tag, %G, uses tag name
+color index_tag red white "inbox"
+# the transformed message tags, %g
+color index_tags green default
