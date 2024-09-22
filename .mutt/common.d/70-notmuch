@@ -61,3 +61,5 @@ bind index,pager gq vfolder-from-query
 bind index,pager \ei sidebar-toggle-virtual
 macro index,pager g+ '<modify-labels>+'
 macro index,pager g- '<modify-labels>-'
+
+fcc-save-hook . "$NOTMUCH_DIR/mail"
