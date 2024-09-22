@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. ~/lib/personal-mail.sh
+cd "$NOTMUCH_DIR"
+gmi "$@"
