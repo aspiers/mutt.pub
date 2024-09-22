@@ -39,7 +39,8 @@ main () {
     check_net_connection
 
     cd $NOTMUCH_DIR
-    gmi sync
+    #gmi sync
+    gmi pull
 }
 
 main "$@"
