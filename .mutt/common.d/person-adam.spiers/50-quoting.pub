@@ -1,5 +1,2 @@
-   macro index <f5> "<enter-command>source ~/.mutt/quoting/normal\n"   "select normal quoting"
-   macro index <f6> "<enter-command>source ~/.mutt/quoting/jeopardy\n" "select jeopardy quoting"
-
-   macro pager <f5> "<enter-command>source ~/.mutt/quoting/normal\n"   "select normal quoting"
-   macro pager <f6> "<enter-command>source ~/.mutt/quoting/jeopardy\n" "select jeopardy quoting"
+   macro index,pager <f5> "<enter-command>source ~/.mutt/quoting/normal\n"   "select normal quoting"
+   macro index,pager <f6> "<enter-command>source ~/.mutt/quoting/jeopardy\n" "select jeopardy quoting"
