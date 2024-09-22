@@ -1,6 +1,3 @@
-# set imap_user = "myaccount@gmail.com"
-# set imap_pass = "mypassword"
-
 set my_gmail_root_folder="[Google%20Mail]"
 source ~/.mutt/common.d/lib/gmail.pub
 
