@@ -1,8 +1,8 @@
 # Should the Sidebar be shown?
-set sidebar_visible = no
+set sidebar_visible = yes
 
 # How wide should the Sidebar be in screen columns?
-#set sidebar_width = 20
+set sidebar_width = 22
 
 # Should the mailbox paths be abbreviated?
 set sidebar_short_path = yes
@@ -12,25 +12,33 @@ set sidebar_folder_indent = yes
 set sidebar_indent_string = '  '
 
 # Number of top-level mailbox path subdirectories to truncate for display
-set sidebar_component_depth = 2
+set sidebar_component_depth = 0
 
 # When abbreviating mailbox path names, use any of these characters as path
 # separators. Only the part after the last separators will be shown.
 # For file folders '/' is good. For IMAP folders, often '.' is useful.
-# However, including '.' will incorrectly indent vfolders for notmuch
+#
+# Including '.' can incorrectly indent vfolders for notmuch
 # queries containing '.' due to a bug:
-# https://github.com/neomutt/neomutt/issues/3111
-set sidebar_delim_chars = '/'
+#
+#   https://github.com/neomutt/neomutt/issues/3111
+#
+# I thought this could be worked around by using saved queries in the
+# notmuch config, so that the vfolder queries are expressions like
+# "query:foo" which doesn't contain any delimiters.  However, now the
+# bug isn't occurring even without this workaround, so I'm not sure
+# what's going on.
+set sidebar_delim_chars = '/.'
 
 # Make the Sidebar only display mailboxes that contain new, or flagged,
 # mail.
 set sidebar_new_mail_only = no
 
-# Any mailboxes that are pinned will always be visible, even if the
-# sidebar_new_mail_only option is enabled.
+# Make the Sidebar only display non-empty mailboxes
 set sidebar_non_empty_mailbox_only = no
 
-# Only show mailboxes that contain some mail
+# Any mailboxes that are pinned will always be visible, regardless
+# of the above options.
 #sidebar_pin '/home/user/mailbox1'
 
 # When searching for mailboxes containing new mail, should the search wrap
@@ -49,6 +57,11 @@ set sidebar_divider_char = '|'
 set mail_check_stats
 
 # Display the Sidebar mailboxes using this format string.
+# '%D'  - description
+# '%F'  - number of flagged messages
+# '%* ' - padding
+# '%N'  - number of unread messages
+# '%S'  - total number of messages
 set sidebar_format="%D%<F? [%F]>%* %<N?%N/>%S"
 
 # Sort the mailboxes in the Sidebar using this method:
@@ -60,29 +73,38 @@ set sidebar_format="%D%<F? [%F]>%* %<N?%N/>%S"
 set sidebar_sort_method = 'unsorted'
 
 # --------------------------------------------------------------------------
-# COLORS – some unpleasant examples are given
+# Sidebar colors
 # --------------------------------------------------------------------------
 # Note: All color operations are of the form:
 #       color OBJECT FOREGROUND BACKGROUND
+
 # Color of the current, open, mailbox
 # Note: This is a general NeoMutt option which colors all selected items.
-color indicator cyan black
+
 # Sidebar-specific color of the selected item
-color sidebar_indicator cyan black
+color sidebar_indicator white blue
+
 # Color of the highlighted, but not open, mailbox.
 color sidebar_highlight black color8
+
 # Color of the entire Sidebar panel
 color sidebar_background default black
+
 # Color of the divider separating the Sidebar from NeoMutt panels
 color sidebar_divider color8 black
+
 # Color to give mailboxes containing flagged mail
 color sidebar_flagged red black
+
 # Color to give mailboxes containing new mail
 color sidebar_new green black
+
 # Color to give mailboxes containing no new/flagged mail, etc.
 color sidebar_ordinary color245 default
+
 # Color to give the spool_file mailbox
 color sidebar_spool_file color207 default
+
 # Color to give mailboxes containing no unread mail
 color sidebar_unread color136 default
 
@@ -92,6 +114,6 @@ bind  index,pager "\e[1;5A" sidebar-prev
 bind  index,pager "\e[1;5B" sidebar-next
 bind  index,pager "\e[1;6A" sidebar-prev-new
 bind  index,pager "\e[1;6B" sidebar-next-new
-macro index,pager "\e[1;5C" "<sidebar-open><sidebar-toggle-visible>"
-macro index,pager "<" ":set sidebar_visible=yes\n<sidebar-prev><sidebar-open>"
-macro index,pager ">" ":set sidebar_visible=yes\n<sidebar-next><sidebar-open>"
+macro index,pager "\e[1;5C" "<sidebar-open>" "Select folder in sidebar"
+macro index,pager "<" ":set sidebar_visible=yes\n<sidebar-prev><sidebar-open>" "Select previous folder in sidebar"
+macro index,pager ">" ":set sidebar_visible=yes\n<sidebar-next><sidebar-open>" "Select next folder in sidebar"
