@@ -1,5 +1,5 @@
 # Should the Sidebar be shown?
-set sidebar_visible = yes
+set sidebar_visible = $NEOMUTT_SIDEBAR_VISIBLE
 
 # How wide should the Sidebar be in screen columns?
 set sidebar_width = 22

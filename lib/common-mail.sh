@@ -61,5 +61,11 @@ export MAIL_DAEMON_LOCK=$MAIL_PROFILE_DIR/.daemon.lock
 export MSMTP_CONFIG=$MAIL_PROFILE_DIR/.msmtprc
 
 export MUTT_CACHE_DIR=~/.cache/mutt/$MAIL_PROFILE
+
 # Needed so smime_keys can query the current mutt config
 export MUTT_CMDLINE="mutt -F $HOME/.mutt/$MAIL_PROFILE"
+
+export NEOMUTT_SIDEBAR_VISIBLE=no
+if [ "${COLUMNS:-80}" -gt 120 ]; then
+    NEOMUTT_SIDEBAR_VISIBLE=yes
+fi
