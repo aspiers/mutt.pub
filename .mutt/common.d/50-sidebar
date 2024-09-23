@@ -35,7 +35,7 @@ set sidebar_delim_chars = '/.'
 set sidebar_new_mail_only = no
 
 # Make the Sidebar only display non-empty mailboxes
-set sidebar_non_empty_mailbox_only = no
+set sidebar_non_empty_mailbox_only = yes
 
 # Any mailboxes that are pinned will always be visible, regardless
 # of the above options.
