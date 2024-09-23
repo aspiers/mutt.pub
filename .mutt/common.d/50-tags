@@ -26,7 +26,7 @@ bind index,pager \` modify-labels
 # tag-transforms tag transformed-string { tag transformed-string ...}
 tag-transforms "inbox"      "i"   \
                "attachment" "📎"  \
-               "important"  "⚠️"   \
+               "important"  "⚠️ " \
                "unread"     "u"   \
                "replied"    "↻ "  \
                "sent"       "➥ "  \
