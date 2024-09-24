@@ -4,7 +4,7 @@
 # https://neomutt.org/feature/custom-tags#7-%C2%A0neomuttrc
 
 # Default limit on number of messages/threads in search results
-set nm_db_limit = 0
+set nm_db_limit = 20000
 
 # Avoids having to always specify the path in queries
 set nm_default_url = "notmuch://$NOTMUCH_DIR"
