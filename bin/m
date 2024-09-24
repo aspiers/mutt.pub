@@ -1,0 +1,4 @@
+#!/bin/bash
+
+. ~/lib/personal-mail.sh
+neomutt -F ~/.mutt/$MAIL_PROFILE "$@"

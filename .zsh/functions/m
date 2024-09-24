@@ -4,8 +4,7 @@ m () {
   setopt local_traps
   trap 'cxx' INT EXIT QUIT KILL
   cx mutt
-  . ~/lib/personal-mail.sh
-  neomutt -F ~/.mutt/$MAIL_PROFILE "$@"
+  command m
 }
 
 compdef _mutt m
