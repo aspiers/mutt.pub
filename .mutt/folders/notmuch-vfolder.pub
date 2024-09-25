@@ -4,9 +4,6 @@
 macro index,pager e "<modify-labels-then-hide>-inbox\n" "remove from inbox"
 macro index,pager u "<modify-labels-then-hide>+inbox\n" "add to inbox"
 
-macro index $ "<change-folder>^<enter>" "refresh vfolder"
-macro pager $ "<exit>$"
-
 # If inbox flag is removed, show a "D" character as if it's deleted
 set index_format='%Z%<GI? &D>%4C %[%b %d] %-18.18f %s%>  %g %c'
 
