@@ -115,5 +115,5 @@ bind  index,pager "\e[1;5B" sidebar-next
 bind  index,pager "\e[1;6A" sidebar-prev-new
 bind  index,pager "\e[1;6B" sidebar-next-new
 macro index,pager "\e[1;5C" "<sidebar-open>" "Select folder in sidebar"
-macro index,pager "<" ":set sidebar_visible=yes\n<sidebar-prev><sidebar-open>" "Select previous folder in sidebar"
-macro index,pager ">" ":set sidebar_visible=yes\n<sidebar-next><sidebar-open>" "Select next folder in sidebar"
+macro index,pager "<" "<enter-command>set sidebar_visible=yes<enter><sidebar-prev><sidebar-open>" "Select previous folder in sidebar"
+macro index,pager ">" "<enter-command>set sidebar_visible=yes<enter><sidebar-next><sidebar-open>" "Select next folder in sidebar"
