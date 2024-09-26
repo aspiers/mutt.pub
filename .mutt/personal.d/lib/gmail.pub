@@ -1,4 +1,0 @@
-set my_gmail_root_folder="[Google%20Mail]"
-source ~/.mutt/common.d/lib/gmail.pub
-
-#bind editor <space> noop
