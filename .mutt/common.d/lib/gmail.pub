@@ -20,5 +20,12 @@ named-mailboxes "IMAP starred" "=$my_gmail_root_folder/Starred"
 named-mailboxes "IMAP sent" "$record"
 named-mailboxes "IMAP drafts" "$postponed"
 
+# Workaround for super annoying "Sorting mailbox..." delay
+# on every folder change after opening an IMAP connection.
+# See:
+#   https://github.com/neomutt/neomutt/issues/186
+#   https://github.com/neomutt/neomutt/issues/2891
+macro index,pager "gx" "<enter-command>exec imap-logout-all<enter>"
+
 folder-hook "imaps://imap.gmail.com" "source ~/.mutt/folders/gmail.pub"
 
