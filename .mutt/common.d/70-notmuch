@@ -39,7 +39,9 @@ set vfolder_format = "%6n(%6N) %f"
 # mailbox.
 virtual-mailboxes "nm:inbox" "notmuch://?query=tag:inbox"
 set spool_file="nm:inbox"
-set virtual_spoolfile = no
+
+# No longer necessary
+#set virtual_spoolfile = no
 
 # setup time window preferences
 # first setup the duration, and then the time unit of that duration
