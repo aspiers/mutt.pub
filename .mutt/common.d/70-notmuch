@@ -7,7 +7,7 @@
 set nm_db_limit = 5000
 
 # Avoids having to always specify the path in queries
-set nm_default_url = "notmuch://$NOTMUCH_DIR"
+set nm_default_url = "notmuch://`notmuch config get database.path`"
 
 # The messages tagged with these tags are excluded and not loaded
 # from notmuch DB to NeoMutt unless specified explicitly.
