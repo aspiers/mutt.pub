@@ -64,5 +64,8 @@ bind index,pager \ei sidebar-toggle-virtual
 macro index,pager g+ '<modify-labels>+'
 macro index,pager g- '<modify-labels>-'
 
-folder-hook (^nm:) "source ~/.mutt/folders/notmuch-vfolder.pub"
-source ~/.mutt/folders/notmuch-vfolder.pub
+# If we use (^nm:) as the pattern here, it works after switching to
+# a new vfolder, but doesn't apply the hook if the first folder opened
+# on launch is a notmuch vfolder.  For some reason, using notmuch://
+# as the regexp doesn't have this problem.
+folder-hook notmuch:// "source ~/.mutt/folders/notmuch-vfolder.pub"
