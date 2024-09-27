@@ -27,5 +27,5 @@ named-mailboxes "IMAP drafts" "$postponed"
 #   https://github.com/neomutt/neomutt/issues/2891
 macro index,pager "gx" "<enter-command>exec imap-logout-all<enter>"
 
-folder-hook "imaps://imap.gmail.com" "source ~/.mutt/folders/gmail.pub"
+source ~/.mutt/folders/gmail.pub
 
