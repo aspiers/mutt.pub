@@ -8,6 +8,7 @@ fcc-save-hook . "=`date +'%Y-%m'`"
 # Gmail-style keyboard shortcuts
 
 macro index,pager e "<enter-command>unset trash\n<delete-message>" "Gmail archive message"
+unbind index,pager d
 # save 'y' for collapse-thread
 
 macro index,pager gl "<change-folder>="                               "Go to label"
