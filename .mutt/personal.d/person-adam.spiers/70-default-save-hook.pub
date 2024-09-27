@@ -1,2 +1,2 @@
-fcc-save-hook . =offlineimap/`date +'%Y-%m'`
+#fcc-save-hook . =offlineimap/`date +'%Y-%m'`
 
