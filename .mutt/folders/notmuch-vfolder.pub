@@ -6,7 +6,8 @@ macro index,pager u "<modify-labels-then-hide>+inbox\n" "add to inbox"
 unbind index,pager d
 
 # If inbox flag is removed, show a "D" character as if it's deleted
-set index_format='%Z%<GI?I&a>%4C %[%b %d] %-18.18f %s%>  %g %c'
+#set index_format='%Z%<GI?I&a>%4C %<[y?%<[m?%<[d?%[ %H:%M]&%[%a %d]>&%[%b %d]>&%[%b%Y]> %-18.18f %s%>  %g %c'
+set index_format='%Z%<GI?I&a>%4C %@date@ %-18.18f %s%>  %g %c'
 
 unhook fcc-save-hook fcc-hook save-hook
 fcc-save-hook . "$NOTMUCH_DIR/to-upload"
