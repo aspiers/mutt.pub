@@ -51,8 +51,6 @@ export OFFLINEIMAP_LOG_DIR=$MAIL_PROFILE_LOG/offlineimap/`date +%Y/%m`
 export OFFLINEIMAP_LOG=$OFFLINEIMAP_LOG_DIR/`date +%d`
 export OFFLINEIMAP_DEBUG_LOG=${OFFLINEIMAP_LOG}-debug
 [ -d "$OFFLINEIMAP_LOG_DIR" ] || mkdir -p "$OFFLINEIMAP_LOG_DIR"
-export OFFLINEIMAP_SLEEP_DURATION_FILE=$MAIL_PROFILE_DIR/.offlineimap-sleep.duration
-export OFFLINEIMAP_SLEEP_PID_FILE=$MAIL_PROFILE_DIR/.offlineimap-sleep.pid
 export OFFLINEIMAP_DEDUPE_SERVER_URL=https://adamspiers.org/computing/mail/dedupe-server/$MAIL_PROFILE
 
 export MAIL_DAEMON_LOG=$MAIL_PROFILE_LOG/daemon.log
@@ -69,3 +67,6 @@ export NEOMUTT_SIDEBAR_VISIBLE=no
 if [ "${COLUMNS:-80}" -gt 120 ]; then
     NEOMUTT_SIDEBAR_VISIBLE=yes
 fi
+
+export MAIL_SYNC_SLEEP_DURATION_FILE=$MAIL_PROFILE_DIR/.${MAIL_SYNC_TOOL}-sleep.duration
+export MAIL_SYNC_SLEEP_PID_FILE=$MAIL_PROFILE_DIR/.${MAIL_SYNC_TOOL}-sleep.pid

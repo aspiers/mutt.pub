@@ -1,0 +1,7 @@
+#!/bin/bash
+
+here=$(dirname $0)
+
+set -- ~/lib/personal-mail.sh "$@"
+
+source $here/sync-mail-daemon

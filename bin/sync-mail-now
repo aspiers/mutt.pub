@@ -1,0 +1,45 @@
+#!/bin/sh
+
+me="`basename $0`"
+
+log () {
+  echo "`date` $*"
+  # logger -t "$me[$$]" "$*"
+}
+
+main () {
+    profile="$1"
+    shift
+    if ! [ -e "$profile" ]; then
+        echo "$profile does not exist; aborting." >&2
+        exit 2
+    fi
+
+    source "$profile"
+
+    log "Loaded $profile; $me starting up"
+
+    if ! [ -e "$MAIL_SYNC_SLEEP_PID_FILE" ]; then
+      if age-of sync-mail-profile >/dev/null 2>&1; then
+        log "sync-mail-profile is already running, no sleep to interrupt"
+        exit 0
+      else
+        # Normally either the sync is running or a sleep is running (and
+        # its pid file exists).  So presumably this the first time we have
+        # ... what?  I never finished writing that comment.  But maybe
+        # the sync-mail-daemon just isn't running?
+        log "ERROR: no sleep pid file found, but sync-mail-profile not running"
+        exit 1
+      fi
+    fi
+
+    pid=$(cat $MAIL_SYNC_SLEEP_PID_FILE)
+    if kill $pid; then
+      log "killed sleep (pid $pid)"
+      rm -f $MAIL_SYNC_SLEEP_PID_FILE
+    else
+      log "ERROR: failed to kill sleep (pid $pid)"
+    fi
+}
+
+main "$@"

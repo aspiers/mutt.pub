@@ -1,6 +1,7 @@
 #!/bin/sh
 
 export MAIL_PROFILE=personal
+export MAIL_SYNC_TOOL=lieer
 export OFFLINEIMAP_SERVER=imap.googlemail.com
 # export LDAP_SERVER=fixme
 # export LDAP_BASE=fixme

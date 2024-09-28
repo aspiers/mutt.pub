@@ -1,0 +1,141 @@
+#!/bin/bash
+
+TIMEOUT=10800  #  3 hours; currently disabled
+MIN_SLEEP=3600 #  1 hour
+MAX_SLEEP=7200 #  2 hours
+NIGHT_START='2:30am'
+NIGHT_END='7am'
+
+me=`basename $0`
+
+# Design goals:
+#
+#   - mostly "fire and forget", leaving daemon running and does Right Thing
+#     non-interactively, logging to file
+#
+#   - exceptions to above: two manual "sync NOW!" triggering methods:
+#      + non-interactive (e.g. from gkrellm), still logs to file
+#      + interactive via command-line, logs to tty
+#
+#   - don't sync between $NIGHT_START and $NIGHT_END
+#
+# Implementation decisions:
+#
+#   - exponential back-off on failure up to $MAX_SLEEP
+#
+#   - success resets polling period to $MIN_SLEEP (including success from
+#     manual trigger)
+#
+#   - locking protects against concurrency
+#
+#   - if takes longer than $TIMEOUT, don't kill any more since maybe better
+#     to spot a hung process
+#
+#   - store $sleep in file to allow manual intervention
+#
+. $ZDOTDIR/lib/libproc.sh
+
+clean_up () {
+  log "daemon shutting down"
+  [ -L "$MAIL_DAEMON_LOCK" ] && rm "$MAIL_DAEMON_LOCK"
+}
+
+reset_sleep_period () {
+  echo $MIN_SLEEP > $MAIL_SYNC_SLEEP_DURATION_FILE
+}
+
+do_sleep () {
+  if [ -n "$1" ]; then
+    sleep="$1"
+  else
+    sleep=$(cat $MAIL_SYNC_SLEEP_DURATION_FILE)
+  fi
+  sleep $sleep &
+  log "sleeping for $sleep seconds"
+
+  # save pid to a file so we can easily kill the sleep
+  pid=$!
+  echo $pid > $MAIL_SYNC_SLEEP_PID_FILE
+  wait $pid
+  rm $MAIL_SYNC_SLEEP_PID_FILE
+}
+
+log () {
+  echo "`date` $*"
+  # logger -t "$me[$$]" "$*"
+}
+
+
+main () {
+    profile="$1"
+    shift
+    if ! [ -e "$profile" ]; then
+        echo "$profile does not exist; aborting." >&2
+        exit 2
+    fi
+
+    . "$profile"
+
+    log "Loaded $profile; $me starting up"
+
+    obtain_lock "$MAIL_DAEMON_LOCK" "$me" || exit 1
+    # Signal must be trapped *after* obtaining lock, otherwise
+    # failure to obtain the lock would remove an active lock.
+    trap clean_up EXIT
+
+    reset_sleep_period
+    night_start=$( date +%s -d "$NIGHT_START" )
+    night_end=$(   date +%s -d "$NIGHT_END"   )
+
+    while true; do
+        now=$( date +%s )
+        if (( night_start < now && now < night_end )); then
+            night_sleep=$(( night_end - now + 1 ))
+            how_long=$( date -u -d @$night_sleep +%T )
+            log "Night-time; sleeping $how_long until $NIGHT_END"
+            do_sleep $night_sleep
+        fi
+
+        # log "Launching $me with $TIMEOUT second timeout ..."
+        # atimeout --KILL $TIMEOUT age-track $me 2>&1
+        log "Launching sync-mail-profile $profile ..."
+        age-track -n "$me" sync-mail-profile "$profile" 2>&1
+        exit=$?
+        log "exit code: $exit, duration: `age-of $me`"
+
+        if [ "$exit" = 0 ]; then
+            # success
+            sleep=$(cat $MAIL_SYNC_SLEEP_DURATION_FILE)
+            reset_sleep_period
+            if [ "$sleep" != $MIN_SLEEP ]; then
+                log "succeeded; reset polling period to $MIN_SLEEP"
+            fi
+        else
+            # failure
+            if [ "$exit" = 254 ]; then
+                log "failed to complete within $TIMEOUT seconds"
+                failure_mode='timed out'
+            else
+                failure_mode='failed'
+            fi
+
+            sleep=$(cat $MAIL_SYNC_SLEEP_DURATION_FILE)
+            if [ "$sleep" -lt $MAX_SLEEP ]; then
+                # exponential back-off
+                sleep=$(( sleep * 2 ))
+                if [ "$sleep" -ge $MAX_SLEEP ]; then
+                    sleep=$MAX_SLEEP
+                fi
+                echo $sleep > $MAIL_SYNC_SLEEP_DURATION_FILE
+
+                log "$failure_mode; increasing polling period to $sleep."
+            else
+                log "$failure_mode; polling period at max ($sleep)."
+            fi
+        fi
+
+        do_sleep
+    done
+}
+
+main "$@"

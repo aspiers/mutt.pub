@@ -1,6 +1,20 @@
 #!/bin/bash
 
-TOOL=lieer
-#TOOL=offlineimap
+main () {
+    profile="$1"
+    if ! [ -e "$profile" ]; then
+        echo "$profile does not exist; aborting." >&2
+        exit 1
+    fi
 
-sync-mail-profile-$TOOL "$@"
+    source "$profile"
+
+    if [ -z "$MAIL_SYNC_TOOL" ]; then
+        echo "$MAIL_SYNC_TOOL not defined by $profile; aborting." >&2
+        exit 2
+    fi
+
+    sync-mail-profile-$MAIL_SYNC_TOOL "$@"
+}
+
+main "$@"
