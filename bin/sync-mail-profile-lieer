@@ -23,9 +23,9 @@ fi
 
 . ~/lib/libhost.sh
 
-if ! [ -t 1 ]; then
-  exec >> "$LIEER_LOG" 2>&1
-fi
+# if ! [ -t 1 ]; then
+#   exec >> "$LIEER_LOG" 2>&1
+# fi
 
 check_net_connection () {
     # N.B. some fuckwit ISPs block ICMP, so this might be problematic

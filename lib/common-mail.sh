@@ -19,6 +19,7 @@ export NOTMUCH_RESULTS=$NOTMUCH_DIR/results
 export LIEER_CONFIG=$NOTMUCH_DIR/.gmailieer.json
 export LIEER_LOG_DIR=$MAIL_PROFILE_LOG/lieer/`date +%Y/%m`
 [ -d "$LIEER_LOG_DIR" ] || mkdir -p "$LIEER_LOG_DIR"
+export LIEER_LOG="$LIEER_LOG_DIR/`date +%d`.log"
 
 if which mairix >/dev/null 2>&1; then
     export MAIRIX_VERSION=$( mairix --version | awk '{print $2}' )
