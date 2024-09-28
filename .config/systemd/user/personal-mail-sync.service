@@ -1,0 +1,10 @@
+[Unit]
+Description=personal mail syncing daemon
+After=network.target
+
+[Service]
+ExecStart=%h/bin/sync-personal-mail-daemon
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

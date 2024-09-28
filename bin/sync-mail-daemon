@@ -61,7 +61,8 @@ do_sleep () {
 }
 
 log () {
-  echo "`date` $*"
+  echo "$*"
+  #echo "`date` $*"
   # logger -t "$me[$$]" "$*"
 }
 

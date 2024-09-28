@@ -3,7 +3,8 @@
 me="`basename $0`"
 
 log () {
-  echo "`date` $*"
+  echo "$*"
+  #echo "`date` $*"
   # logger -t "$me[$$]" "$*"
 }
 
