@@ -57,7 +57,9 @@ do_sleep () {
   pid=$!
   echo $pid > $MAIL_SYNC_SLEEP_PID_FILE
   wait $pid
-  rm $MAIL_SYNC_SLEEP_PID_FILE
+  # If sync-mail-now was called to cut the sleep short early, it will
+  # have already removed this pid file, so use -f to avoid an error.
+  rm -f $MAIL_SYNC_SLEEP_PID_FILE
 }
 
 log () {
