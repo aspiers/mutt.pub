@@ -7,7 +7,7 @@ set timeout = 300
 set imap_keepalive = 300
 set imap_idle
 
-set folder = "imaps://imap.gmail.com:993/"
+set folder = "$my_gmail_root"
 # set spool_file = "=INBOX"
 
 # For some reason, imap_{user,pass} need to be set before setting the following:

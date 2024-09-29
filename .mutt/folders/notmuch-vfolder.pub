@@ -11,4 +11,5 @@ unbind index,pager d
 set index_format='%Z%<GI?I&a>%4C %@date@ %-18.18f %s%>  %g %c'
 
 unhook fcc-save-hook fcc-hook save-hook
-fcc-save-hook . "$NOTMUCH_DIR/to-upload"
+#fcc-save-hook . "$NOTMUCH_DIR/to-upload"
+fcc-save-hook . "=$my_notmuch_upload_folder"
