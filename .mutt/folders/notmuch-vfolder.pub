@@ -9,6 +9,8 @@ macro index,pager "\ej" "<modify-labels-then-hide>+spam -inbox\n" "mark as spam"
 # It requires adding the 'trash' label.
 unbind index,pager d
 
+macro index,pager g$ "<change-folder>^<enter>" "refresh vfolder"
+
 # If inbox flag is removed, show a "D" character as if it's deleted
 #set index_format='%Z%<GI?I&a>%4C %<[y?%<[m?%<[d?%[ %H:%M]&%[%a %d]>&%[%b %d]>&%[%b%Y]> %-18.18f %s%>  %g %c'
 set index_format='%Z%<GI?I&a>%4C %@date@ %-18.18f %s%>  %g %c'
