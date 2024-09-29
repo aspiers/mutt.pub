@@ -4,6 +4,9 @@
 macro index,pager e "<modify-labels-then-hide>-inbox\n" "remove from inbox"
 macro index,pager u "<modify-labels-then-hide>+inbox\n" "add to inbox"
 macro index,pager "\ej" "<modify-labels-then-hide>+spam -inbox\n" "mark as spam"
+
+# We delete very rarely indeed, so make sure we don't do this by accident.
+# It requires adding the 'trash' label.
 unbind index,pager d
 
 # If inbox flag is removed, show a "D" character as if it's deleted
