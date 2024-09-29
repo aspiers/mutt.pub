@@ -4,18 +4,25 @@ import os
 import sys
 import json
 
-# Read JSON from STDIN
-j = json.load(sys.stdin)[0]
+TERM_WIDTH = int(os.getenv('COLUMNS') or 78)
 
-term_width = int(os.getenv('COLUMNS') or 78)
+def main():
+    # Read JSON from STDIN
+    mails = json.load(sys.stdin)
 
-tags = ' '.join(j['tags'])
-before_subj = "{date:11.11} {mfrom:18.18}  ".format(
-    date = j['date_relative'],
-    mfrom = j['headers']['From'])
+    for m in mails:
+        summarize_mail(m)
 
-print("{before}{subject:{subject_width}.{subject_width}} {tags}".format(
-    before = before_subj,
-    subject_width = term_width - len(before_subj) - 1 - len(tags),
-    subject = j['headers']['Subject'],
-    tags = tags))
+def summarize_mail(m):
+    tags = ' '.join(m['tags'])
+    before_subj = "{date:11.11}  {mfrom:18.18}  ".format(
+        date = m['date_relative'],
+        mfrom = m['headers']['From'])
+
+    print("{before}{subject:{subject_width}.{subject_width}} {tags}".format(
+        before = before_subj,
+        subject_width = TERM_WIDTH - len(before_subj) - 1 - len(tags),
+        subject = m['headers']['Subject'],
+        tags = tags))
+
+main()
