@@ -4,7 +4,7 @@ m () {
   setopt local_traps
   trap 'cxx' INT EXIT QUIT KILL
   cx mutt
-  command m
+  command m "$@"
 }
 
 compdef _mutt m
