@@ -11,7 +11,7 @@ set nm_default_url = "notmuch://`notmuch config get database.path`"
 
 # The messages tagged with these tags are excluded and not loaded
 # from notmuch DB to NeoMutt unless specified explicitly.
-set nm_exclude_tags = ""
+set nm_exclude_tags = "deleted,spam"
 
 # This option specifies timeout for Notmuch database. Default is 5 seconds.
 set nm_open_timeout = 5
