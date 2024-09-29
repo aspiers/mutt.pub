@@ -10,7 +10,7 @@ main () {
     source "$profile"
 
     if [ -z "$MAIL_SYNC_TOOL" ]; then
-        echo "$MAIL_SYNC_TOOL not defined by $profile; aborting." >&2
+        echo "\$MAIL_SYNC_TOOL not defined by $profile; aborting." >&2
         exit 2
     fi
 
