@@ -1,0 +1,36 @@
+#!/usr/bin/python
+
+import sys
+import json
+
+def process_item(item):
+    if isinstance(item, dict):
+        if 'id' in item:
+            # Found an object with 'id', process it
+            return [item]
+        else:
+            # Recursively process all values in the dictionary
+            processed_items = []
+            for key, value in item.items():
+                processed_subitems = process_item(value)
+                processed_items += processed_subitems
+            return processed_items
+    elif isinstance(item, list):
+        # Recursively process all items in the list
+        processed_items = []
+        for subitem in item:
+            processed_subitems = process_item(subitem)
+            processed_items += processed_subitems
+        return processed_items
+    elif item is None:
+        return []
+
+# Read JSON from STDIN
+input_json = json.load(sys.stdin)
+
+# Process the input JSON
+items = process_item(input_json)
+
+# Output the processed JSON to STDOUT
+json.dump(items, sys.stdout, indent=2)
+print("")

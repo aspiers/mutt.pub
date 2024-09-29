@@ -1,0 +1,5 @@
+#!/bin/bash
+
+notmuch search --output=messages "$@" | while read id; do
+    notmuch-show1 "$id"
+done

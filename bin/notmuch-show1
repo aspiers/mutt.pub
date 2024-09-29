@@ -1,0 +1,5 @@
+#!/bin/bash
+
+notmuch show --format=json --body=false --entire-thread=false "$@" | \
+    notmuch-extract-nested-mails |
+    notmuch-summarize
