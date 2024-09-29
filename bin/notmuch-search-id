@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+#
+# Write a neomutt file which can be sourced to switch to a vfolder
+# from a query finding the thread containing the file piped on STDIN.
+#
+# See also https://neomutt.org/guide/reference#3-121-%C2%A0external_search_command
+# However that can't show messages outside the current (v)folder.
+
+import email
+import os
+import re
+import sys
+
+def extract_message_id():
+    # Read the email from STDIN
+    raw_email = sys.stdin.read()
+
+    # Parse the email
+    msg = email.message_from_string(raw_email)
+
+    # Extract the Message-ID
+    message_id = msg.get('Message-ID')
+
+    if not message_id:
+        print("No Message-ID found.", file=sys.stderr)
+        sys.exit(1)
+
+    m = re.match(r'<(.+)>', message_id)
+    if m:
+        return m.group(1)
+    return message_id
+
+
+def main():
+    message_id = extract_message_id()
+    message_id_quoted = re.escape(message_id).replace("\\", '\\\\')
+    id_query = "id:" + message_id
+    thread_query = 'thread:"{%s}"' % id_query
+    print(f"thread_query: {thread_query}")
+    query_file = os.getenv('NOTMUCH_THREAD_QUERY')
+    cmds = (
+        f"<vfolder-from-query>{thread_query}<enter>"
+        f"<search>~i \"{message_id_quoted}\"<enter>"
+    )
+    with open(query_file, 'w') as f:
+        f.write("push '%s'" % cmds)
+
+
+if __name__ == "__main__":
+    main()
