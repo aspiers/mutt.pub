@@ -109,6 +109,11 @@ color sidebar_spool_file color207 default
 color sidebar_unread color136 default
 
 bind  index,pager ,         sidebar-toggle-visible
+
+# Why can't we use this syntax for Control+cursor keys?
+# https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=213212
+#bind  index,pager "<C-Down>" sidebar-next
+
 bind  index,pager "\e[1;5D" sidebar-toggle-visible
 bind  index,pager "\e[1;5A" sidebar-prev
 bind  index,pager "\e[1;5B" sidebar-next
