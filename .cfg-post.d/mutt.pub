@@ -9,3 +9,5 @@ mkdir -p ~/.smime/{certificates,keys}
 
 mkdir -p ~/.mairix/personal
 mkdir -p ~/.cache/mutt/personal/bodies
+
+systemctl --user enable personal-mail-sync
