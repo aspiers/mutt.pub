@@ -1,5 +1,65 @@
-#!/bin/bash
+#!/usr/bin/python
+#
+# Message-oriented hybrid of "notmuch search" and "notmuch show" which
+# outputs one message per line.
 
-notmuch show --format=json --body=false --entire-thread=false "$@" | \
-    notmuch-extract-nested-mails |
-    notmuch-summarize
+import json
+import os
+import subprocess
+import sys
+
+TERM_WIDTH = int(os.getenv('COLUMNS') or 78)
+
+def main():
+    cmd = [
+        "notmuch", "show",
+        "--format=json",
+        "--body=false",
+        "--entire-thread=false",
+    ] + sys.argv[1:]
+    notmuch_output = subprocess.check_output(cmd).decode('utf-8')
+    input_json = json.loads(notmuch_output)
+
+    mails = extract_mails(input_json)
+
+    # json.dump(items, sys.stdout, indent=2)
+    # print("")
+
+    for m in mails:
+        summarize_mail(m)
+
+def extract_mails(item):
+    if isinstance(item, dict):
+        if 'id' in item:
+            # Found an object with 'id', process it
+            return [item]
+        else:
+            # Recursively process all values in the dictionary
+            processed_items = []
+            for key, value in item.items():
+                processed_subitems = extract_mails(value)
+                processed_items += processed_subitems
+            return processed_items
+    elif isinstance(item, list):
+        # Recursively process all items in the list
+        processed_items = []
+        for subitem in item:
+            processed_subitems = extract_mails(subitem)
+            processed_items += processed_subitems
+        return processed_items
+    elif item is None:
+        return []
+
+def summarize_mail(m):
+    tags = ' '.join(m['tags'])
+    before_subj = "{date:11.11}  {mfrom:18.18}  ".format(
+        date = m['date_relative'],
+        mfrom = m['headers']['From'].encode('utf-8'))
+
+    print("{before}{subject:{subject_width}.{subject_width}} {tags}".format(
+        before = before_subj,
+        subject_width = TERM_WIDTH - len(before_subj) - 1 - len(tags),
+        subject = m['headers']['Subject'],
+        tags = tags))
+
+main()
