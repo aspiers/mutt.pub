@@ -5,9 +5,14 @@ $ZDOTDIR/.mutt/run-hooks common personal > $ZDOTDIR/.mutt/personal.autogen
 mkdir -p ~/.smime/{certificates,keys}
 
 . ~/lib/personal-mail.sh
+
+# https://github.com/gauteh/lieer/issues/289#issuecomment-2381624204
+notmuch config set --database new.tags ' '
+
 [ -e ~/.smime/keys/.index ] || smime_keys init
 
 mkdir -p ~/.mairix/personal
 mkdir -p ~/.cache/mutt/personal/bodies
 
 systemctl --user enable personal-mail-sync
+
