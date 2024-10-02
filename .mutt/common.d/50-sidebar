@@ -110,17 +110,26 @@ color sidebar_unread color136 default
 
 bind  index,pager ,         sidebar-toggle-visible
 
-# This only works sometimes.
+# <C-cursor> bindings only works with certain terminal types, like
+# xterm-256color and tmux-256color, but *not* screen-256color.
 # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=213212
+# See user_caps(5) man page
+
+# This doesn't work; ifdef treats the empty string as undefined
+#set my_kc5="`infocmp -x $TERM | grep kUP5`"
+#ifdef my_kc5 bind index,pager "<C-Up>"    sidebar-prev
+
+# So just assume this works for now.  If we need to use terminal
+# types which don't support this, we can take a different approach.
+bind  index,pager "<C-Up>"    sidebar-prev
+bind  index,pager "<C-Down>"  sidebar-next
+bind  index,pager "<C-Right>" sidebar-open
 
 bind  index,pager "\e[1;5D" sidebar-toggle-visible
-bind  index,pager "<C-Up>" sidebar-prev
 bind  index,pager "\e[1;5A" sidebar-prev
-bind  index,pager "<C-Down>" sidebar-next
 bind  index,pager "\e[1;5B" sidebar-next
 bind  index,pager "\e[1;6A" sidebar-prev-new
 bind  index,pager "\e[1;6B" sidebar-next-new
-bind index,pager "<C-Right>" sidebar-open
-bind index,pager "\e[1;5C" sidebar-open
+bind  index,pager "\e[1;5C" sidebar-open
 macro index,pager "<" "<enter-command>set sidebar_visible=yes<enter><sidebar-prev><sidebar-open>" "Select previous folder in sidebar"
 macro index,pager ">" "<enter-command>set sidebar_visible=yes<enter><sidebar-next><sidebar-open>" "Select next folder in sidebar"
