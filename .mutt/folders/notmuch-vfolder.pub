@@ -9,7 +9,10 @@ macro index,pager "\ej" "<modify-labels-then-hide>+spam -inbox\n" "mark as spam"
 # It requires adding the 'trash' label.
 unbind index,pager d
 
-macro index,pager g$ "<mark-message>z<change-folder>^<enter>'z" "refresh vfolder"
+# We need the lall<Enter> to counter the possible presence of the
+# folder-hook from .mutt/common.d/96-GTD-FIFO
+macro index g$ "<mark-message>z<enter><change-folder>^<enter>lall<enter>'z" "refresh vfolder"
+macro pager g$ "qg$<enter>" "refresh vfolder"
 
 macro index,pager A "<pipe-message>notmuch-search-id<return><enter-command>source $NOTMUCH_THREAD_QUERY<return>" "vfolder query for other messages with the same id as this email"
 
