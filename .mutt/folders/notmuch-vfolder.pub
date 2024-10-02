@@ -18,5 +18,7 @@ macro index,pager A "<pipe-message>notmuch-search-id<return><enter-command>sourc
 set index_format='%Z%<GI?I&a>%4C %@date@ %-18.18f %s%>  %g %c'
 
 unhook fcc-save-hook fcc-hook save-hook
-save-hook . "$NOTMUCH_DIR/to-upload"
-fcc-hook . "$my_notmuch_upload_folder"
+# If mail has to be temporarily stored locally,
+# pointing save-hook to IMAP makes it easier to upload later.
+#fcc-save-hook . "$NOTMUCH_DIR/to-upload"
+fcc-save-hook . "$my_notmuch_upload_folder"
