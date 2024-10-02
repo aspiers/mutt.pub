@@ -110,15 +110,17 @@ color sidebar_unread color136 default
 
 bind  index,pager ,         sidebar-toggle-visible
 
-# Why can't we use this syntax for Control+cursor keys?
+# This only works sometimes.
 # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=213212
-#bind  index,pager "<C-Down>" sidebar-next
 
 bind  index,pager "\e[1;5D" sidebar-toggle-visible
+bind  index,pager "<C-Up>" sidebar-prev
 bind  index,pager "\e[1;5A" sidebar-prev
+bind  index,pager "<C-Down>" sidebar-next
 bind  index,pager "\e[1;5B" sidebar-next
 bind  index,pager "\e[1;6A" sidebar-prev-new
 bind  index,pager "\e[1;6B" sidebar-next-new
-macro index,pager "\e[1;5C" "<sidebar-open>" "Select folder in sidebar"
+bind index,pager "<C-Right>" sidebar-open
+bind index,pager "\e[1;5C" sidebar-open
 macro index,pager "<" "<enter-command>set sidebar_visible=yes<enter><sidebar-prev><sidebar-open>" "Select previous folder in sidebar"
 macro index,pager ">" "<enter-command>set sidebar_visible=yes<enter><sidebar-next><sidebar-open>" "Select next folder in sidebar"
