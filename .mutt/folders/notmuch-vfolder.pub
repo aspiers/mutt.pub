@@ -5,6 +5,9 @@ macro index,pager e "<modify-labels-then-hide>-inbox\n" "remove from inbox"
 macro index,pager u "<modify-labels-then-hide>+inbox\n" "add to inbox"
 macro index,pager "\ej" "<modify-labels-then-hide>+spam -inbox\n" "mark as spam"
 
+# Failed attempt to work around https://github.com/neomutt/neomutt/issues/4396
+#macro pager e "<exit><mark-message>z<enter><modify-labels-then-hide>-inbox<enter>'z<enter>"
+
 # We delete very rarely indeed, so make sure we don't do this by accident.
 # It requires adding the 'trash' label.
 unbind index,pager d
