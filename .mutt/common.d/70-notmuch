@@ -24,11 +24,8 @@ set nm_query_type = messages  # or "threads"
 set nm_record = no
 
 # Tags modifications to the messages stored in the NeoMutt record.
-# example:
-#   set record = "~/sent-mails"
-#   set nm_record = yes
 #   set nm_record_tags = "-inbox,archive,me"
-set nm_record_tags = ""
+set nm_record_tags = "-inbox"
 
 set nm_unread_tag = unread
 
