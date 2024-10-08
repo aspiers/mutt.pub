@@ -21,9 +21,13 @@ macro pager g$ "qg$<enter>" "refresh vfolder"
 
 macro index,pager A "<pipe-message>notmuch-search-id<return><enter-command>source $NOTMUCH_THREAD_QUERY<return>" "vfolder query for other messages with the same id as this email"
 
-# If inbox flag is removed, show a "D" character as if it's deleted
-#set index_format='%Z%<GI?I&a>%4C %<[y?%<[m?%<[d?%[ %H:%M]&%[%a %d]>&%[%b %d]>&%[%b%Y]> %-18.18f %s%>  %g %c'
-set index_format='%Z%<GI?I&a>%4C %@date@ %-18.18f %s%>  %g %c'
+# %<GI?i&A> shows "i" if inbox flag is present, otherwise "A" for
+# archived.  J shows all non-hidden tags per message.  %g is similar
+# but also inherits tags from the containing thread.
+#
+#set index_format='%Z%<GI?i&A>%4C %<[y?%<[m?%<[d?%[ %H:%M]&%[%a %d]>&%[%b %d]>&%[%b%Y]> %-18.18f %s%>  %g %c'
+# %J
+set index_format='%Z%<GI?i&A>%4C %@date@ %-18.18f %s%>  %J %c'
 
 unhook fcc-save-hook fcc-hook save-hook
 # If mail has to be temporarily stored locally,
