@@ -28,7 +28,11 @@ fi
 # fi
 
 check_net_connection () {
-    # N.B. some fuckwit ISPs block ICMP, so this might be problematic
+    if icmp-blocked; then
+        # N.B. some fuckwit ISPs block ICMP, so watch out for those
+        # and hope for the best.
+        return
+    fi
     if ! isup gmail.com; then
         echo "`date` gmail.com not reachable, skipping mail sync"
         exit 0 # consider success, don't exp back-off
