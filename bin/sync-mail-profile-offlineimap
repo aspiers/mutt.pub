@@ -52,19 +52,17 @@ if ! [ -t 1 ]; then
 fi
 
 check_net_connection () {
-    # Don't choke GPRS connection unless explicitly requested run interactively
-    if [ "`gw-dev`" == ppp0 ] && ! [ -t 1 ]; then
-        echo "`date` gateway interface is ppp0, automatic mail sync disabled"
-        exit 0 # consider success, don't exp back-off
+    if icmp-blocked; then
+        # N.B. some fuckwit ISPs block ICMP, so watch out for those
+        # and hope for the best.
+        return
     fi
 
     server=$OFFLINEIMAP_SERVER
-    # some fuckwit ISPs block ICMP
-    #
-    # if ! isup $server; then
-    #     echo "`date` $server not reachable, skipping mail sync"
-    #     exit 0 # consider success, don't exp back-off
-    # fi
+    if ! isup $server; then
+        echo "`date` $server not reachable, skipping mail sync"
+        exit 0 # consider success, don't exp back-off
+    fi
 }
 
 run_offlineimap () {
