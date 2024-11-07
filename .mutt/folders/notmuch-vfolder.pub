@@ -20,6 +20,8 @@ macro index g$ "<mark-message>z<enter><change-folder>^<enter>lall<enter>'z" "ref
 macro pager g$ "qg$<enter>" "refresh vfolder"
 
 macro index,pager A "<pipe-message>notmuch-search-id<return><enter-command>source $NOTMUCH_THREAD_QUERY<return>" "vfolder query for other messages with the same id as this email"
+macro index,pager "\em" "<pipe-message>notmuch-search-id<return>" "extract message id(s) into mairix clipboard"
+macro index,pager "\eR"  "<pipe-message>notmuch-search-id<return><shell-escape>switch-feed-emacs < ~/lib/xmacro/org-capture-personal-TODO-from-mail\ne" "org-capture personal TODO mail"
 
 # %<GI?i&A> shows "i" if inbox flag is present, otherwise "A" for
 # archived.  J shows all non-hidden tags per message.  %g is similar
