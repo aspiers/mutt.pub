@@ -15,6 +15,9 @@ export NOTMUCH_DIR=$MAIL_PROFILE_DIR/notmuch
 # N.B. config file has to be outside directory, at least for bootstrapping
 export NOTMUCH_CONFIG=$MAIL_PROFILE_DIR/.notmuch-config
 export NOTMUCH_THREAD_QUERY=$NOTMUCH_DIR/.thread-query
+
+# FIXME: don't think this is used because unlike mairix, notmuch
+# vfolders in mutt don't exist on disk?
 export NOTMUCH_RESULTS=$NOTMUCH_DIR/results
 
 export LIEER_CONFIG=$NOTMUCH_DIR/.gmailieer.json
