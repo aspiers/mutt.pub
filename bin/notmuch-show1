@@ -10,6 +10,7 @@ import sys
 
 TERM_WIDTH = int(os.getenv('COLUMNS') or 78)
 
+
 def main():
     cmd = [
         "notmuch", "show",
@@ -27,6 +28,7 @@ def main():
 
     for m in mails:
         summarize_mail(m)
+
 
 def extract_mails(item):
     if isinstance(item, dict):
@@ -50,6 +52,7 @@ def extract_mails(item):
     elif item is None:
         return []
 
+
 def summarize_mail(m):
     tags = ' '.join(m['tags'])
     before_subj = "{date:11.11}  {mfrom:18.18}  ".format(
@@ -61,5 +64,6 @@ def summarize_mail(m):
         subject_width = TERM_WIDTH - len(before_subj) - 1 - len(tags),
         subject = m['headers']['Subject'].encode('utf-8'),
         tags = tags))
+
 
 main()
