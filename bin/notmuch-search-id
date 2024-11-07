@@ -11,40 +11,67 @@ import os
 import re
 import sys
 
-def extract_message_id():
+def main():
+    msg = parse_email()
+    msg_id = extract_message_id(msg)
+    thread_query = get_thread_query(msg_id)
+    write_mutt_query_file(thread_query, msg_id)
+
+    sender = msg.get('From')
+    subject = msg.get('Subject')
+    write_emacs_link_file(thread_query, sender, subject)
+
+
+def parse_email():
     # Read the email from STDIN
     raw_email = sys.stdin.read()
 
     # Parse the email
     msg = email.message_from_string(raw_email)
 
-    # Extract the Message-ID
-    message_id = msg.get('Message-ID')
+    return msg
 
-    if not message_id:
+
+def get_thread_query(msg_id):
+    id_query = "id:" + msg_id
+    thread_query = 'thread:"{%s}"' % id_query
+    return thread_query
+
+
+def extract_message_id(msg):
+    # Extract the Message-ID
+    msg_id = msg.get('Message-ID')
+
+    if not msg_id:
         print("No Message-ID found.", file=sys.stderr)
         sys.exit(1)
 
-    m = re.match(r'<(.+)>', message_id)
+    m = re.match(r'<(.+)>', msg_id)
     if m:
         return m.group(1)
-    return message_id
+    return msg_id
 
 
-def main():
-    message_id = extract_message_id()
-    message_id_quoted = re.escape(message_id).replace("\\", '\\\\')
-    id_query = "id:" + message_id
-    thread_query = 'thread:"{%s}"' % id_query
-    print(f"thread_query: {thread_query}")
-    query_file = os.getenv('NOTMUCH_THREAD_QUERY')
+def write_mutt_query_file(thread_query, msg_id):
+    msg_id_quoted = re.escape(msg_id).replace("\\", '\\\\')
     cmds = (
         f"<vfolder-from-query>{thread_query}<enter>"
-        f"<search>~i \"{message_id_quoted}\"<enter>"
+        f"<search>~i \"{msg_id_quoted}\"<enter>"
     )
+    query_file = os.getenv('NOTMUCH_THREAD_QUERY')
     with open(query_file, 'w') as f:
         f.write("push '%s'" % cmds)
 
 
+def write_emacs_link_file(thread_query, sender, subject):
+    query_file = os.getenv('NOTMUCH_ORG_LINK')
+    link = "notmuch:%s" % thread_query
+    text = "f:%s s:%s" % (sender, subject)
+    with open(query_file, 'w') as f:
+        f.write("[[%s][%s]]" % (link, text))
+
+
 if __name__ == "__main__":
     main()
+    # Make mutt wait after running:
+    # sys.exit(1)

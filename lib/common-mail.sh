@@ -20,6 +20,11 @@ export NOTMUCH_THREAD_QUERY=$NOTMUCH_DIR/.thread-query
 # vfolders in mutt don't exist on disk?
 export NOTMUCH_RESULTS=$NOTMUCH_DIR/results
 
+# See as-mairix.el which is a bunch of customizations of
+# org-mairix.el, and provides this pseudo-clipboard file
+# which notmuch links can reuse.
+export NOTMUCH_ORG_LINK=$HOME/.org-mail-link
+
 export LIEER_CONFIG=$NOTMUCH_DIR/.gmailieer.json
 export LIEER_LOG_DIR=$MAIL_PROFILE_LOG/lieer/`date +%Y/%m`
 [ -d "$LIEER_LOG_DIR" ] || mkdir -p "$LIEER_LOG_DIR"
