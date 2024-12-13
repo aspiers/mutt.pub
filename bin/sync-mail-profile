@@ -6,6 +6,14 @@ main () {
         echo "$profile does not exist; aborting." >&2
         exit 1
     fi
+    shift
+
+    if [ "$1" = "--wait-for-key" ]; then
+        wait_for_key=yes
+        shift
+    fi
+
+    set -- "$profile" "$@"
 
     source "$profile"
 
@@ -15,6 +23,11 @@ main () {
     fi
 
     sync-mail-profile-$MAIL_SYNC_TOOL "$@"
+
+    if [ -n "$wait_for_key" ]; then
+        echo -en "\nPress enter to quit > "
+        read
+    fi
 }
 
 main "$@"
