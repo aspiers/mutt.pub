@@ -33,7 +33,7 @@ me=`basename $0`
 #
 #   - store $sleep in file to allow manual intervention
 #
-. $ZDOTDIR/lib/libproc.sh
+. ~/lib/libproc.sh
 
 clean_up () {
   log "daemon shutting down"
