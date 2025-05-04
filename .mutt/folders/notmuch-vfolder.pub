@@ -3,7 +3,8 @@
 # hides the mail on the next sync-mailbox command.
 macro index e "<modify-labels-then-hide>-inbox\n" "remove from inbox"
 macro index u "<modify-labels-then-hide>+inbox\n" "add to inbox"
-macro index "\ej" "<modify-labels-then-hide>+spam -inbox\n" "mark as spam"
+macro index "\ej" "<modify-labels-then-hide>+spam -inbox\n" "mark as spam + archive"
+macro index "\eU" "<modify-labels-then-hide>+org-unsubbed -inbox\n" "mark as unsubbed + archive"
 
 # Attempt to work around https://github.com/neomutt/neomutt/issues/4396
 macro pager e "<exit>e<enter>"
