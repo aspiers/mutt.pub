@@ -32,7 +32,14 @@ tag-transforms "inbox"      "i"   \
                "sent"       "➥ "  \
                "todo"       "T"   \
                "deleted"    "DEL" \
-               "invites"    "CAL"
+               "invites"    "CAL" \
+               "[Superhuman]/AI/Marketing" "🤖 Marketing" \
+               "[Superhuman]/AI/Meeting"   "🤖 Meeting"   \
+               "[Superhuman]/AI/News"      "🤖 News"      \
+               "[Superhuman]/AI/Pitch"     "🤖 Pitch"     \
+               "[Superhuman]/AI/Respond"   "🤖 Respond"   \
+               "[Superhuman]/AI/Social"    "🤖 Social"   \
+               "[Superhuman]/AI/gigs"      "🤖 gigs"
 
 # The formats must start with 'G' and the entire sequence is case sensitive.
 # tag-formats tag format-string { tag format-string ...}
