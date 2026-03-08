@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #
 # Message-oriented hybrid of "notmuch search" and "notmuch show" which
 # outputs one message per line.
@@ -57,12 +57,12 @@ def summarize_mail(m):
     tags = ' '.join(m['tags'])
     before_subj = "{date:11.11}  {mfrom:18.18}  ".format(
         date = m['date_relative'],
-        mfrom = m['headers']['From'].encode('utf-8'))
+        mfrom = m['headers']['From'])
 
     print("{before}{subject:{subject_width}.{subject_width}} {tags}".format(
         before = before_subj,
         subject_width = TERM_WIDTH - len(before_subj) - 1 - len(tags),
-        subject = m['headers']['Subject'].encode('utf-8'),
+        subject = m['headers']['Subject'],
         tags = tags))
 
 
