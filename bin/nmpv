@@ -1,4 +1,11 @@
 #!/bin/bash
 
+case "$1" in
+    -h|--help)
+        echo -e "nmpv is just notmuch-show1 --vfolder ...\n"
+        exec notmuch-show1 "$1"
+        ;;
+esac
+
 . ~/lib/personal-mail.sh
 notmuch-show1 --vfolder "$@"
