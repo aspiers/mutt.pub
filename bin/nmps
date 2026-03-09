@@ -1,4 +1,4 @@
 #!/bin/bash
 
 . ~/lib/personal-mail.sh
-nms "$@"
+notmuch-show1 "$@"
