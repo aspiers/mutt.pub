@@ -3,6 +3,7 @@
 # Message-oriented hybrid of "notmuch search" and "notmuch show" which
 # outputs one message per line.
 
+import argparse
 import json
 import os
 import subprocess
@@ -12,19 +13,46 @@ TERM_WIDTH = int(os.getenv('COLUMNS') or 78)
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        description='Message-oriented hybrid of "notmuch search" and "notmuch show" '
+                    'which outputs one message per line.')
+    parser.add_argument('-v', '--vfolder', metavar='DIR',
+                        help='create a Maildir vfolder of symlinks at DIR')
+    parser.add_argument('search_args', nargs=argparse.REMAINDER,
+                        help='arguments passed to notmuch show/search')
+    parsed = parser.parse_args()
+
+    vfolder = parsed.vfolder
+    filtered_args = parsed.search_args
+
     cmd = [
         "notmuch", "show",
         "--format=json",
         "--body=false",
         "--entire-thread=false",
-    ] + sys.argv[1:]
+    ] + filtered_args
     notmuch_output = subprocess.check_output(cmd).decode('utf-8')
     input_json = json.loads(notmuch_output)
 
     mails = extract_mails(input_json)
 
-    # json.dump(items, sys.stdout, indent=2)
-    # print("")
+    if vfolder:
+        cur = os.path.join(vfolder, 'cur')
+        os.makedirs(cur, exist_ok=True)
+        files_cmd = [
+            "notmuch", "search",
+            "--output=files",
+            "--format=text0",
+        ] + filtered_args
+        files_output = subprocess.check_output(files_cmd)
+        for path in files_output.split(b'\0'):
+            if path:
+                path = path.decode()
+                dest = os.path.join(cur, os.path.basename(path))
+                if os.path.islink(dest):
+                    os.unlink(dest)
+                os.symlink(path, dest)
+                print(path)
 
     for m in mails:
         summarize_mail(m)
