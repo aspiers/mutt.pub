@@ -28,9 +28,9 @@ macro index,pager "\eR"  "<pipe-message>notmuch-search-id<return><shell-escape>s
 # archived.  J shows all non-hidden tags per message.  %g is similar
 # but also inherits tags from the containing thread.
 #
-#set index_format='%Z%<GI?i&A>%4C %<[y?%<[m?%<[d?%[ %H:%M]&%[%a %d]>&%[%b %d]>&%[%b%Y]> %-18.18f %s%>  %g %c'
+#set index_format='%Z%<GI?i&A>%4C %<[y?%<[m?%<[d?%[ %H:%M]&%[%a %d]>&%[%b %d]>&%[%b%Y]> %-25.25f %s%>  %g %c'
 # %J
-set index_format='%Z%<GI?i&A>%4C %@date@ %-18.18f %s%>  %J %c'
+set index_format='%Z%<GI?i&A>%4C %@date@ %-25.25f %s%>  %J %c'
 
 unhook fcc-save-hook fcc-hook save-hook
 # If mail has to be temporarily stored locally,
