@@ -3,6 +3,8 @@
 # https://neomutt.org/feature/notmuch#8-%C2%A0neomuttrc
 # https://neomutt.org/feature/custom-tags#7-%C2%A0neomuttrc
 
+unignore Tags Folder
+
 # Default limit on number of messages/threads in search results
 set nm_db_limit = 5000
 
